@@ -1,5 +1,5 @@
 <script setup></script>
 
-<template>index</template>
+<template>這裡是首頁</template>
 
 <style scoped></style>
