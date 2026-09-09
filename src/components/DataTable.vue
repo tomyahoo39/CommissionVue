@@ -58,7 +58,7 @@ const handleDelete = (item) => {
         </tr>
 
         <!-- 有資料時渲染 -->
-        <tr v-else v-for="(item,index)in items" :key="item.id || index" style="cursor: pointer">
+        <tr v-else v-for="(item, index) in items" :key="item.id || index" style="cursor: pointer">
           <!-- 動態渲染欄位值 -->
           <td v-for="col in columns" :key="col.key">
             {{ item[col.key] }}
