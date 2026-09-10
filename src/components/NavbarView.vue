@@ -62,16 +62,19 @@ import { RouterLink } from 'vue-router'
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              系統設定
+              Q&A資訊
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li>
                 <RouterLink to="/qa" class="dropdown-item" active-class="active"
-                  >QA 設定</RouterLink
+                  >後台QA設定</RouterLink
                 >
               </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item text-muted" href="#">其他設定</a></li>
+              <li>
+                <RouterLink to="/guestQa" class="dropdown-item" active-class="active"
+                  >Q&A問與答</RouterLink
+                >
+              </li>
             </ul>
           </li>
         </ul>
