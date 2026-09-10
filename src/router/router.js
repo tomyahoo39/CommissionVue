@@ -19,6 +19,11 @@ const router = createRouter({
       component: () => import('../views/QaSetting/GuestQaView.vue'),
     },
     {
+      path: '/showguestQa',
+      name: 'showguestQa',
+      component: () => import('../views/QaSetting/GuestQuestionView.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
       component: () => import('../views/NotFoundView.vue'),

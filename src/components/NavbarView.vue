@@ -71,6 +71,11 @@ import { RouterLink } from 'vue-router'
                 >
               </li>
               <li>
+                <RouterLink to="/showguestQa" class="dropdown-item" active-class="active"
+                  >後台訪客提問資訊</RouterLink
+                >
+              </li>
+              <li>
                 <RouterLink to="/guestQa" class="dropdown-item" active-class="active"
                   >Q&A問與答</RouterLink
                 >
