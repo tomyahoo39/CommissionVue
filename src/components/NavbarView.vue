@@ -49,7 +49,7 @@ import { RouterLink } from 'vue-router'
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><a class="dropdown-item" href="#">目前排單</a></li>
-              <li><a class="dropdown-item" href="#">歷史委託</a></li>
+              <li><RouterLink to="/order" class="dropdown-item">後台排單設定</RouterLink></li>
             </ul>
           </li>
 
@@ -66,6 +66,11 @@ import { RouterLink } from 'vue-router'
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li>
+                <RouterLink to="/guestQa" class="dropdown-item" active-class="active"
+                  >Q&A問與答</RouterLink
+                >
+              </li>
+              <li>
                 <RouterLink to="/qa" class="dropdown-item" active-class="active"
                   >後台QA設定</RouterLink
                 >
@@ -73,11 +78,6 @@ import { RouterLink } from 'vue-router'
               <li>
                 <RouterLink to="/showguestQa" class="dropdown-item" active-class="active"
                   >後台訪客提問資訊</RouterLink
-                >
-              </li>
-              <li>
-                <RouterLink to="/guestQa" class="dropdown-item" active-class="active"
-                  >Q&A問與答</RouterLink
                 >
               </li>
             </ul>

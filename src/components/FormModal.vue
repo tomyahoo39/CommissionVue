@@ -59,56 +59,56 @@ const handleSubmit = () => {
               </label>
 
               <!-- 文字框 -->
-              <input
-                v-if="field.type === 'text'"
-                :id="field.key"
-                v-model="formData[field.key]"
-                type="text"
-                class="form-control"
-                :placeholder="field.placeholder"
-                :required="field.required"
-              />
+              <input v-if="field.type === 'text'"
+                     :id="field.key"
+                     v-model="formData[field.key]"
+                     type="text"
+                     class="form-control"
+                     :placeholder="field.placeholder"
+                     :required="field.required" />
               <!-- 數字區域 -->
-              <input
-                v-else-if="field.type === 'number'"
-                :id="field.key"
-                v-model.number="formData[field.key]"
-                type="number"
-                class="form-control"
-                min="0"
-                :placeholder="field.placeholder"
-                :required="field.required"
-              />
+              <input v-else-if="field.type === 'number'"
+                     :id="field.key"
+                     v-model.number="formData[field.key]"
+                     type="number"
+                     class="form-control"
+                     min="0"
+                     :placeholder="field.placeholder"
+                     :required="field.required" />
               <!-- 3. 下拉選單 (select) -> 適合 true/false 或選單 -->
-              <select
-                v-else-if="field.type === 'select'"
-                :id="field.key"
-                v-model="formData[field.key]"
-                class="form-select"
-                :required="field.required"
-              >
+              <select v-else-if="field.type === 'select'"
+                      :id="field.key"
+                      v-model="formData[field.key]"
+                      class="form-select"
+                      :required="field.required">
                 <option v-for="opt in field.options" :key="opt.value" :value="opt.value">
                   {{ opt.text }}
                 </option>
               </select>
 
               <!-- 長文字區域 -->
-              <textarea
-                v-else-if="field.type === 'textarea'"
-                :id="field.key"
-                v-model="formData[field.key]"
-                class="form-control"
-                rows="3"
-                :placeholder="field.placeholder || `請輸入${field.label}`"
-                :required="field.required"
-              ></textarea>
+              <textarea v-else-if="field.type === 'textarea'"
+                        :id="field.key"
+                        v-model="formData[field.key]"
+                        class="form-control"
+                        rows="3"
+                        :placeholder="field.placeholder || `請輸入${field.label}`"
+                        :required="field.required"></textarea>
+
+              <!-- 1. 日期選擇器 -->
+              <input v-if="field.type === 'date'"
+                     :id="field.key"
+                     v-model="formData[field.key]"
+                     type="date"
+                     class="form-control"
+                     />
             </div>
           </div>
 
           <!-- 按鈕區 -->
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="emit('close')">取消</button>
-            <button type="submit" class="btn btn-primary" @click="handleSave">儲存</button>
+            <button type="submit" class="btn btn-primary">儲存</button>
           </div>
         </form>
       </div>

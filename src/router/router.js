@@ -9,6 +9,11 @@ const router = createRouter({
       component: () => import('../views/Index/IndexView.vue'),
     },
     {
+      path: '/order',
+      name: 'order',
+      component: () => import('../views/CommissionOrder/AdminOrdersView.vue'),
+    },
+    {
       path: '/qa',
       name: 'qa',
       component: () => import('../views/QaSetting/QaSettingView.vue'),
