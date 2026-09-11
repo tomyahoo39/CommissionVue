@@ -48,7 +48,7 @@ import { RouterLink } from 'vue-router'
               排單表
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-              <li><a class="dropdown-item" href="#">目前排單</a></li>
+              <li><RouterLink to="/guestOrder" class="dropdown-item">目前排單行程</RouterLink></li>
               <li><RouterLink to="/order" class="dropdown-item">後台排單設定</RouterLink></li>
             </ul>
           </li>

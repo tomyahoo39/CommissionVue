@@ -14,6 +14,11 @@ const router = createRouter({
       component: () => import('../views/CommissionOrder/AdminOrdersView.vue'),
     },
     {
+      path: '/guestOrder',
+      name: 'guestOrder',
+      component: () => import('../views/CommissionOrder/GuestOrdersView.vue'),
+    },
+    {
       path: '/qa',
       name: 'qa',
       component: () => import('../views/QaSetting/QaSettingView.vue'),

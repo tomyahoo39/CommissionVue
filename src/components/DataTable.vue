@@ -27,6 +27,17 @@ const handleEdit = (item) => {
 const handleDelete = (item) => {
   emit('delete', item)
 }
+
+  const renderValue = (col, val) => {
+    if (val === null || val === undefined || val === '') return '無資料';
+    const opt = col.options
+    if (opt && Array.isArray(opt)) {
+      const target = opt.find(o => o.value === val)
+      return target ? target.text : val
+    }
+    return val;
+  };
+
 </script>
 
 <template>
@@ -61,7 +72,7 @@ const handleDelete = (item) => {
         <tr v-else v-for="(item, index) in items" :key="item.id || index" style="cursor: pointer">
           <!-- 動態渲染欄位值 -->
           <td v-for="col in columns" :key="col.key">
-            {{ item[col.key] }}
+            {{ renderValue(col,item[col.key]) }}
           </td>
 
           <!-- 按鈕區塊 -->
