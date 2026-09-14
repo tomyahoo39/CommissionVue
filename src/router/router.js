@@ -9,6 +9,11 @@ const router = createRouter({
       component: () => import('../views/Index/IndexView.vue'),
     },
     {
+      path: '/guestPeriod',
+      name: 'guestPeriod',
+      component: () => import('../views/CommissionPeriod/PeriodGuestView.vue')
+    },
+    {
       path: '/period',
       name: 'period',
       component: () => import('../views/CommissionPeriod/PeriodAdminView.vue')

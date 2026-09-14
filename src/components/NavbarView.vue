@@ -41,6 +41,7 @@ import { RouterLink } from 'vue-router'
               填單表
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+              <li><RouterLink to="/guestPeriod" class="dropdown-item">委託填單表</RouterLink></li>
               <li><RouterLink to="/period" class="dropdown-item">委託期設定</RouterLink></li>
               <li><RouterLink to="/type" class="dropdown-item">委託項目設定</RouterLink></li>
               <li><RouterLink to="/social" class="dropdown-item">社群平台設定</RouterLink></li>
