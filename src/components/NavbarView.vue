@@ -42,7 +42,7 @@ import { RouterLink } from 'vue-router'
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/type" class="dropdown-item">委託項目設定</RouterLink></li>
-              <li><RouterLink to="/" class="dropdown-item">後台</RouterLink></li>
+              <li><RouterLink to="/social" class="dropdown-item">社群平台設定</RouterLink></li>
             </ul>
           </li>
 

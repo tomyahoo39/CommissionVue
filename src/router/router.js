@@ -14,6 +14,11 @@ const router = createRouter({
       component:()=>import('../views/CommissionPeriod/CommissionTypeView.vue')
     },
     {
+      path: '/social',
+      name: 'social',
+      component: () => import('../views/CommissionPeriod/SocialPlatformView.vue')
+    },
+    {
       path: '/guestOrder',
       name: 'guestOrder',
       component: () => import('../views/CommissionOrder/GuestOrdersView.vue'),
