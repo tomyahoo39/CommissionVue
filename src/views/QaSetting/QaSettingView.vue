@@ -9,7 +9,11 @@ const qaColumns = [
   { label: '問題', key: 'question' },
   { label: '回答', key: 'answer' },
   { label: '排序', key: 'sortOrder' },
-  { label: '啟用狀態', key: 'isVisible' },
+  {
+    label: '啟用狀態', key: 'isVisible', options: [
+      { text: '啟用', value: true },
+      { text: '停用', value: false },
+    ] },
 ]
 
 const qaList = ref([])

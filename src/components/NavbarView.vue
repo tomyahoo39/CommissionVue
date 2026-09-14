@@ -32,8 +32,18 @@ import { RouterLink } from 'vue-router'
           <li class="nav-item">
             <a class="nav-link" href="#">價目表</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">填單表</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+              填單表
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+              <li><RouterLink to="/type" class="dropdown-item">委託項目設定</RouterLink></li>
+              <li><RouterLink to="/" class="dropdown-item">後台</RouterLink></li>
+            </ul>
           </li>
 
           <!-- 下拉選單 1 -->

@@ -9,9 +9,9 @@ const router = createRouter({
       component: () => import('../views/Index/IndexView.vue'),
     },
     {
-      path: '/order',
-      name: 'order',
-      component: () => import('../views/CommissionOrder/AdminOrdersView.vue'),
+      path: '/type',
+      name: 'type',
+      component:()=>import('../views/CommissionPeriod/CommissionTypeView.vue')
     },
     {
       path: '/guestOrder',
@@ -19,14 +19,19 @@ const router = createRouter({
       component: () => import('../views/CommissionOrder/GuestOrdersView.vue'),
     },
     {
-      path: '/qa',
-      name: 'qa',
-      component: () => import('../views/QaSetting/QaSettingView.vue'),
+      path: '/order',
+      name: 'order',
+      component: () => import('../views/CommissionOrder/AdminOrdersView.vue'),
     },
     {
       path: '/guestQa',
       name: 'guestQa',
       component: () => import('../views/QaSetting/GuestQaView.vue'),
+    },
+    {
+      path: '/qa',
+      name: 'qa',
+      component: () => import('../views/QaSetting/QaSettingView.vue'),
     },
     {
       path: '/showguestQa',
