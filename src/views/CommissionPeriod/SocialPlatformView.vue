@@ -1,6 +1,6 @@
 <script setup>
   import { ref , onMounted } from 'vue'
-  import socialService from '@/services/SocialPlatform'
+  import socialService from '@/services/socialPlatform'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
 
@@ -19,8 +19,10 @@
 
   const getAllSocial = async () => {
     isLoading.value = true
-    try {
-      const response = await socialService.getAllSocial()
+    console.log(1)
+      try {
+          const response = await socialService.getAllSocial()
+      console.log(2)
       socials.value = response.data
       isLoading.value = false
     } catch (error) {

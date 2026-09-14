@@ -1,6 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
-  import typeService from '@/services/CommissionType'
+  import typeService from '@/services/commissionType'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
 
