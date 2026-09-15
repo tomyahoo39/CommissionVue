@@ -50,8 +50,6 @@
       const socialRes = await socialService.getActiveSocial()
       typeOptions.value = typeRes.data
       socialOptions.value = socialRes.data
-      console.log(socialOptions)
-      console.log(typeOptions)
     } catch (error) {
       console.error(error)
     }
@@ -121,7 +119,7 @@
     </div>
   </div>
 
-  <div class="container py-4" style="max-width: 600px;">
+  <div class="container py-4" style="max-width: 600px;" v-if="activePeriod">
     <h2 class="h4 mb-4 fw-bold">填寫委託申請表單</h2>
 
     <form @submit.prevent="handleSubmit" class="card p-4 shadow-sm" v-if="activePeriod">

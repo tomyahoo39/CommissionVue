@@ -14,6 +14,12 @@ const orderService = {
 
   createNewOrder(order) {
     return api.post('/CommissionOrders/NewOrder',order)
+  },
+  drawOrder(draw) {
+    return api.post('/CommissionOrders/Draw',draw)
+  },
+  RedrawOrder(draw) {
+    return api.post('/CommissionOrders/ReDraw',draw)
   }
 
 

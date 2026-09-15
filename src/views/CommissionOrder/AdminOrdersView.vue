@@ -3,6 +3,7 @@
   import orderService from '@/services/commissionOrder'
   import ShowDetail from '@/components/ShowDetail.vue'
   import FormModal from '@/components/FormModal.vue'
+  import periodService from '@/services/commissionPeriod'
 
   const orderList = ref([])
   const isLoading = ref(false)
@@ -44,6 +45,22 @@
     { label: '建立時間', key: 'createdAt' },
   ]
   const periodId = ref('')
+  const periods = ref([])
+
+  const getLatestPeriod = async () => {
+    try {
+      const response = await periodService.getAllPeriod()
+      periods.value = response.data
+
+      if (periods.value && periods.value.length > 0) {
+        const latestPeriod = periods.value[0]
+        periodId.value = latestPeriod.id
+        getAdminOrder()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const getAdminOrder = async () => {
     isLoading.value = true
@@ -116,6 +133,7 @@
   }
 
   onMounted(() => {
+    getLatestPeriod()
   })
 </script>
 
