@@ -10,7 +10,13 @@ const orderService = {
   },
   editOrder(id,order) {
     return api.put(`/CommissionOrders/Date/${id}`,order)
+  },
+
+  createNewOrder(order) {
+    return api.post('/CommissionOrders/NewOrder',order)
   }
+
+
 }
 
 export default orderService

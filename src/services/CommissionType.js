@@ -1,6 +1,9 @@
 import api from '@/services/axios'
 
 const typeService = {
+  getActiveType() {
+    return api.get('/CommissionTypes/ActiveType')
+  },
   getAllType() {
     return api.get('/CommissionTypes/Type')
   },
