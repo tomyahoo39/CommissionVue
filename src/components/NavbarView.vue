@@ -29,8 +29,17 @@ import { RouterLink } from 'vue-router'
           <li class="nav-item">
             <RouterLink to="/" class="nav-link" active-class="active fw-bold">首頁</RouterLink>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">價目表</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+              價目表
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+              <li><RouterLink to="/image" class="dropdown-item">圖片設定與上傳</RouterLink></li>
+            </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"

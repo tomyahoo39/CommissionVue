@@ -9,6 +9,11 @@ const router = createRouter({
       component: () => import('../views/Index/IndexView.vue'),
     },
     {
+      path: '/image',
+      name: 'image',
+      component: () => import('../views/Image/ImageAdminView.vue')
+    },
+    {
       path: '/guestPeriod',
       name: 'guestPeriod',
       component: () => import('../views/CommissionPeriod/PeriodGuestView.vue')
