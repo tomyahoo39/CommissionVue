@@ -7,8 +7,8 @@ const imageService = {
   getGuestImage() {
     return api.get('/Images/AllImages')
   },
-  getAdminImage() {
-    return api.get('/Images/AllImagesAdmin')
+  getAdminImage(typeId) {
+    return api.get(`/Images/AllImagesAdmin?commissionTypeId=${typeId}`)
   },
   updateImage(id,update) {
     return api.put(`/Images/UpdateImage/${id}`,update)
