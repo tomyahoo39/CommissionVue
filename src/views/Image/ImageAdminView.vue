@@ -93,10 +93,6 @@
     }
   }
 
-
-
-
-
   onMounted(() => {
     getTypes()
   })

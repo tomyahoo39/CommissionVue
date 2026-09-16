@@ -4,8 +4,8 @@ const imageService = {
   getFirstThumbs() {
     return api.get('/Images/FirstThumbs')
   },
-  getGuestImage() {
-    return api.get('/Images/AllImages')
+  getGuestImage(typeId) {
+    return api.get(`/Images/AllImages?commissionTypeId=${typeId}`)
   },
   getAdminImage(typeId) {
     return api.get(`/Images/AllImagesAdmin?commissionTypeId=${typeId}`)
