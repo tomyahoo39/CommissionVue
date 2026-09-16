@@ -58,6 +58,45 @@
     return path.startsWith('https') ? path :`${BASE_URL}${path}`
   }
 
+  const moveImage = (index,direction) => {
+    const targetIndex = index + direction
+    if (targetIndex < 0 || targetIndex >= images.value.length) return
+
+    const temp = images.value[index]
+    images.value[index] = images.value[targetIndex]
+    images.value[targetIndex] = temp
+
+    images.value.forEach((img, i)=> {
+      img.sortOrder = i + 1
+    })
+  }
+
+  const isSaving = ref(false)
+  const handleSave = async (img) => {
+    isSaving.value = true
+    try {
+      const update = {
+        commissionTypeId: img.commissionTypeId,
+        title: img.title,
+        sortOrder: img.sortOrder,
+        isVisible: img.isVisible,
+      }
+
+      await imageService.updateImage(img.id, update)
+      alert('圖片更新成功')
+      getImagesByTypeId(selectedTypeId.value)
+    } catch (error) {
+      console.error(error)
+      alert('更新失敗')
+    } finally {
+      isSaving.value = false
+    }
+  }
+
+
+
+
+
   onMounted(() => {
     getTypes()
   })
@@ -99,7 +138,7 @@
 
       <!-- 圖片網格 (Cards) -->
       <div v-else class="row g-3">
-        <div v-for="img in images"
+        <div v-for="(img,index) in images"
              :key="img.id"
              class="col-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100 shadow-sm" :class="{ 'opacity-50 bg-light': !img.isVisible }">
@@ -111,6 +150,54 @@
               <span v-if="!img.isVisible" class="badge bg-danger position-absolute top-0 start-0 m-2">
                 已隱藏
               </span>
+            </div>
+
+            <div class="card-body p-3">
+              <!-- 1. 修改標題 -->
+              <div class="mb-2">
+                <label class="form-label small text-muted mb-1">圖片標題</label>
+                <input v-model="img.title" type="text" class="form-control form-control-sm" />
+              </div>
+
+              <!-- 2. 前台顯示開關 (isVisible) -->
+              <div class="form-check form-switch mb-3">
+                <input :id="'switch-' + img.id"
+                       v-model="img.isVisible"
+                       class="form-check-input"
+                       type="checkbox"
+                       role="switch" />
+                <label :for="'switch-' + img.id" class="form-check-label small">
+                  {{ img.isVisible ? '前台顯示中' : '已隱藏' }}
+                </label>
+              </div>
+
+              <!-- 3. 排序按鈕 (▲ / ▼) 與儲存按鈕 -->
+              <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                <!-- 排序按鈕組 -->
+                <div class="btn-group btn-group-sm">
+                  <button type="button"
+                          class="btn btn-outline-secondary"
+                          :disabled="index === 0"
+                          @click="moveImage(index, -1)">
+                    ▲
+                  </button>
+                  <button type="button"
+                          class="btn btn-outline-secondary"
+                          :disabled="index === images.length - 1"
+                          @click="moveImage(index, 1)">
+                    ▼
+                  </button>
+                </div>
+
+                <span class="badge bg-light text-dark border">
+                  排序: {{ img.sortOrder }}
+                </span>
+
+                <!-- 單張儲存按鈕 -->
+                <button class="btn btn-sm btn-primary" :disabled="isSaving" @click="handleSave(img)">
+                  儲存
+                </button>
+              </div>
             </div>
 
             <!-- 卡片內容 -->

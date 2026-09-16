@@ -35,7 +35,7 @@ import { RouterLink } from 'vue-router'
                role="button"
                data-bs-toggle="dropdown"
                aria-expanded="false">
-              價目表
+              作品集
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/image" class="dropdown-item">圖片設定與上傳</RouterLink></li>
