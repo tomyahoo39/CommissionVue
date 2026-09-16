@@ -1,7 +1,9 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted,watch } from 'vue'
 import imageService from '@/services/image'
 import typeService from '@/services/CommissionType'
+import { useRoute } from 'vue-router'
+
 
 const isLoading = ref(false)
 const types = ref([])
@@ -15,7 +17,15 @@ const getTypes = async () => {
     const response = await typeService.getAllType()
     types.value = response.data
     if (types.value.length > 0) {
-      selectedTypeId.value = types.value[0].id
+      const queryTypeId = Number(route.query.typeId)
+      const hasType = types.value.some(t => t.id === queryTypeId)
+
+      if (queryTypeId && hasType) {
+        selectedTypeId.value = queryTypeId
+      } else {
+        selectedTypeId.value = types.value[0].id
+      }
+
       await getImagesByTypeId(selectedTypeId.value)
     }
   } catch (error) {
@@ -47,6 +57,8 @@ const getImageUrl = (path) => {
   if (!path) return
   return path.startsWith('https') ? path : `${BASE_URL}${path}`
 }
+
+const route = useRoute()
 
 onMounted(() => {
   getTypes()

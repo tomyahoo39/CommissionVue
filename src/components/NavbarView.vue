@@ -26,8 +26,18 @@ import { RouterLink } from 'vue-router'
       <!-- 導覽連結 -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-1">
-          <li class="nav-item">
-            <RouterLink to="/" class="nav-link" active-class="active fw-bold">首頁</RouterLink>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+              首頁
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+              <li><RouterLink to="/" class="dropdown-item">首頁</RouterLink></li>
+              <li><RouterLink to="/homeAdmin" class="dropdown-item">首頁後台設定</RouterLink></li>
+            </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"
