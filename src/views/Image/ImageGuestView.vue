@@ -2,8 +2,7 @@
 import { ref, computed, onMounted,watch } from 'vue'
 import imageService from '@/services/image'
 import typeService from '@/services/CommissionType'
-import { useRoute } from 'vue-router'
-
+import { useRoute, useRouter } from 'vue-router'
 
 const isLoading = ref(false)
 const types = ref([])
@@ -64,6 +63,14 @@ const currentType = computed(() => {
   return types.value.find(t => t.id === selectedTypeId.value) || {}
 })
 
+
+const router = useRouter()
+const goToOrder = () => {
+  router.push({
+    path:'/guestPeriod'
+  })
+}
+
 onMounted(() => {
   getTypes()
 })
@@ -71,6 +78,13 @@ onMounted(() => {
 
 <template>
   <div class="container py-4">
+
+    <div class="text-end border-top pt-3">
+      <button class="btn-custom-action" @click="goToOrder">
+        前往填寫委託單 ➔
+      </button>
+    </div>
+
     <!-- 標題與新增按鈕 -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="h4 mb-0 fw-bold">委託項目作品分類</h2>
