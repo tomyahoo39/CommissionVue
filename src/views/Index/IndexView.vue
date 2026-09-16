@@ -2,13 +2,15 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import imageService from '@/services/image'
-import { getHomeConfig} from '@/services/index'
+import indexService from '@/services/index'
+import typeService from '@/services/CommissionType'
 
 const router = useRouter()
 const isLoading = ref(false)
 
 const indexData = ref([])
-const homeConfig = ref({})
+const homeNotice = ref('')
+const types = ref([])
 
 const BASE_URL = 'https://localhost:7015'
 const getImageUrl = (path) => {
@@ -16,10 +18,17 @@ const getImageUrl = (path) => {
   return path.startsWith('https') ? path : `${BASE_URL}${path}`
 }
 
+const getTypeInfo = (typeId) => {
+  return types.value.find(t => t.id === typeId) || {}
+}
+
 const getData = async () => {
   isLoading.value = true
   try {
-    homeConfig.value = getHomeConfig()
+    const typeRes = await typeService.getAllType()
+    types.value = typeRes.data
+    const noticeRes = await indexService.getIndexNotice()
+    homeNotice.value = noticeRes.data[0].noticeContent
     const res = await imageService.getFirstThumbs()
     indexData.value = res.data
   } catch (error) {
@@ -48,10 +57,10 @@ onMounted(() => {
 
   <div v-else>
     <!-- 1. 委託前須知與規範文字 -->
-    <section class="mb-5 p-4 rounded bg-light border shadow-sm">
+    <section  class="mb-5 p-4 rounded bg-light border shadow-sm">
       <h3 class="h5 fw-bold mb-3 border-bottom pb-2 text-primary">📋 委託前須知與規範</h3>
       <div class="lh-lg text-dark whitespace-pre-line">
-        <h5>{{ homeConfig.noticeContent }}</h5>
+        <h5>{{ homeNotice}}</h5>
       </div>
     </section>
 
@@ -76,16 +85,21 @@ onMounted(() => {
               <!-- 右側：名稱與前端自訂介紹 -->
               <div class="col-12 col-sm-7 p-3 d-flex flex-column justify-content-between">
                 <div>
-                  <div class=" justify-content-between align-items-center mb-2">
-                    <h5 class="fw-bold mb-0 text-dark">{{ item.typeName }}</h5>
-                    <span v-if="homeConfig.typesInfo?.[item.commissionTypeId]?.basePrice" class="badge bg-light text-dark border">
-                      NT$ {{ homeConfig.typesInfo[item.commissionTypeId].basePrice }} 起
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <!-- ⭕ 拿正確匹配的標題 -->
+                    <h5 class="fw-bold mb-0 text-dark">
+                      {{ getTypeInfo(item.commissionTypeId).typeName || item.typeName }}
+                    </h5>
+
+                    <!-- ⭕ 有 basePrice 才顯示 -->
+                    <span v-if="getTypeInfo(item.commissionTypeId).basePrice" class="badge bg-light text-dark border">
+                      NT$ {{ getTypeInfo(item.commissionTypeId).basePrice }} 起
                     </span>
                   </div>
 
-                  <!-- 顯示該分類在前端維護的文字說明 -->
+                  <!-- ⭕ 顯示 shortDescription -->
                   <p class="card-text text-muted small lh-base mb-2 whitespace-pre-line">
-                    {{ homeConfig.typesInfo?.[item.commissionTypeId]?.description || '點擊觀看更多相關作品。' }}
+                    {{ getTypeInfo(item.commissionTypeId).shortDescription || '點擊觀看更多相關作品。' }}
                   </p>
                 </div>
 

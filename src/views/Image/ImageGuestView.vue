@@ -60,6 +60,10 @@ const getImageUrl = (path) => {
 
 const route = useRoute()
 
+const currentType = computed(() => {
+  return types.value.find(t => t.id === selectedTypeId.value) || {}
+})
+
 onMounted(() => {
   getTypes()
 })
@@ -82,6 +86,20 @@ onMounted(() => {
         </button>
       </li>
     </ul>
+
+    <div v-if="currentType.fullDescription || currentType.basePrice" class="card p-4 mb-4 bg-light border-0 shadow-sm">
+      <h5 class="fw-bold mb-2 text-primary">{{ currentType.typeName }} 委託說明</h5>
+
+      <!-- 起價資訊 -->
+      <p v-if="currentType.basePrice" class="text-danger fw-bold mb-2">
+        起價：NT$ {{ currentType.basePrice }} 起
+      </p>
+
+      <!-- 完整介紹：加上 whitespace-pre-line 確保 \n 換行與空格正常顯示 -->
+      <div v-if="currentType.fullDescription" class="text-secondary whitespace-pre-line fs-6 lh-base">
+        {{ currentType.fullDescription }}
+      </div>
+    </div>
 
     <!-- 載入中狀態 -->
     <div v-if="isLoading" class="text-center py-5 text-muted">
@@ -133,4 +151,9 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+  .whitespace-pre-line {
+    white-space: pre-line;
+  }
+</style>

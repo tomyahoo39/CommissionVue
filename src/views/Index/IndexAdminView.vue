@@ -1,70 +1,96 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getHomeConfig, saveHomeConfig } from '@/services/index'
-import typeService from '@/services/CommissionType'
+import indexService from '@/services/index'
 
-const configForm = ref(
-  {
-    noticeContent: '',
-    typesInfo: '',
-  }
-)
-const types = ref([])
+const isLoading = ref(false)
+const isSaving = ref(false)
+const noticeId = ref(1)
+const noticeContent = ref('')
+const message = ref({type:'',text:''})
 
-const handleSave = () => {
-  saveHomeConfig(configForm.value)
-  alert('首頁資訊已儲存')
-}
-
-onMounted(async() => {
-  configForm.value = getHomeConfig()
+const getNotice = async () => {
+  isLoading.value = true
   try {
-    const res = await typeService.getAllType()
-    types.value = res.data
-
-    types.value.forEach(type => {
-      if (!configForm.value.typesInfo[type.id]) {
-        configForm.value.typesInfo[type.id] = { description: '', basePrice: '' }
-      }
-    })
+    const res = await indexService.getIndexNotice()
+    const data = res.data
+    noticeId.value = data[0].id
+    noticeContent.value = data[0].noticeContent
   } catch (error) {
     console.error(error)
+  } finally {
+    isLoading.value = false
   }
+}
+
+const showMessage = (type, text) => {
+  message.value = { type, text }
+  setTimeout(() => {
+    message.value = { type: '', text: '' }
+  }, 3000)
+}
+
+const handleSave = async () => {
+  if (!noticeContent.value.trim()) {
+    showMessage('warning', '須知內容不可為空！')
+    return
+  }
+  isSaving.value = true
+  try {
+    await indexService.updateNotice(noticeId.value, noticeContent.value)
+    showMessage('success', '委前須知已成功更新！')
+  } catch (error) {
+    console.error(error)
+    showMessage('danger', '儲存失敗，請確認後端服務是否正常。')
+  } finally {
+    isSaving.value = false
+  }
+}
+
+
+
+onMounted(() => {
+  getNotice()
 })
-
-  
-
 </script>
 
 <template>
   <div class="container py-4">
-    <h3 class="mb-4 fw-bold">首頁資訊管理</h3>
-
-    <!-- 須知規範 -->
-    <div class="card p-3 mb-4 shadow-sm">
-      <h5 class="fw-bold">委託須知與規範</h5>
-      <textarea v-model="configForm.noticeContent" class="form-control" rows="10"></textarea>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="h4 mb-0 fw-bold">⚙️ 委託前須知與規範設定</h2>
     </div>
 
-    <!-- 各分類設定 -->
-    <div class="card p-3 mb-4 shadow-sm">
-      <h5 class="fw-bold mb-3">分類價格與描述</h5>
-      <div v-for="t in types" :key="t.id" class="border-bottom pb-3 mb-3">
-        <h6 class="fw-bold text-primary">{{ t.typeName }} (ID: {{ t.id }})</h6>
-        <div class="row g-2">
-          <div class="col-md-3">
-            <label class="form-label small">起價 (basePrice)</label>
-            <input v-model="configForm.typesInfo[t.id].basePrice" type="text" class="form-control" placeholder="2000" />
-          </div>
-          <div class="col-md-9">
-            <label class="form-label small">詳細描述 (description)</label>
-            <textarea v-model="configForm.typesInfo[t.id].description" class="form-control" rows="3"></textarea>
-          </div>
-        </div>
+    <!-- 狀態提示 -->
+    <div v-if="message.text" :class="`alert alert-${message.type} alert-dismissible fade show`" role="alert">
+      {{ message.text }}
+    </div>
+
+    <!-- 載入中 -->
+    <div v-if="isLoading" class="text-center py-5 text-muted">
+      <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+      資料載入中...
+    </div>
+
+    <!-- 編輯表單 -->
+    <div v-else class="card shadow-sm border-0 p-4">
+      <div class="mb-3">
+        <label for="noticeArea" class="form-label fw-bold">委前須知內容 (支援 Enter 換行與排版)：</label>
+        <textarea id="noticeArea"
+                  v-model="noticeContent"
+                  class="form-control font-monospace"
+                  rows="12"
+                  placeholder="請在此輸入全站委託前須知文字..."></textarea>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-secondary" @click="getNotice" :disabled="isSaving">
+          重置 / 重新載入
+        </button>
+        <button class="btn btn-primary px-4" @click="handleSave" :disabled="isSaving">
+          <span v-if="isSaving" class="spinner-border spinner-border-sm me-1"></span>
+          儲存變更
+        </button>
       </div>
     </div>
-
-    <button class="btn btn-primary px-4" @click="handleSave">儲存設定</button>
   </div>
 </template>
 

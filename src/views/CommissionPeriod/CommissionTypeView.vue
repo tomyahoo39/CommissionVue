@@ -3,6 +3,7 @@
   import typeService from '@/services/commissionType'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
+  import ShowDetail from '@/components/ShowDetail.vue'
 
   const types = ref([])
   const typeColumns = [
@@ -24,6 +25,9 @@
         { text: '停用', value: 0 }
       ]
     },
+    { label: '底價', key: 'basePrice' },
+    { label: '簡短介紹', key: 'shortDescription' },
+    { label: '完整介紹', key: 'fullDescription' },
   ]
   const isLoading = ref(false)
 
@@ -47,6 +51,9 @@
 
   const addFields = [
     { label: '委託項目', key: 'typeName', type: 'text', required: true, placeholder: '請輸入委託項目' },
+    { label: '委託底價', key: 'basePrice', type: 'number', required: true, placeholder: '請輸入委託底價數字' },
+    { label: '首頁簡短介紹', key: 'shortDescription', type: 'textarea',placeholder: '請輸入首頁介紹' },
+    { label: '完整介紹', key: 'fullDescription', type: 'textarea',placeholder: '請輸入完整介紹' },
   ]
   const editFields = [
     { label: '委託項目', key: 'typeName', type: 'text', required: true, placeholder: '請輸入委託項目' },
@@ -64,6 +71,9 @@
         { text: '停用', value: false },
       ] },
     { label: '前台圖片展示順序', key: 'homeSortOrder', type: 'number', required: true, placeholder: '請輸入展示順序' },
+    { label: '委託底價', key: 'basePrice', type: 'number', required: true, placeholder: '請輸入委託底價數字' },
+    { label: '首頁簡短介紹', key: 'shortDescription', type: 'textarea', placeholder: '請輸入首頁介紹' },
+    { label: '完整介紹', key: 'fullDescription', type: 'textarea', placeholder: '請輸入完整介紹' },
   ]
 
   const openAddModal = () => {
@@ -117,18 +127,22 @@
       資料載入中...
     </div>
 
-    <DataTable :columns="typeColumns"
-               :items="types"
-               :showEdit=true
-               :showDelete=false
-               @edit=handleEdit />
-    <FormModal :title="currentTitle"
-               :isOpen="isModalOpen"
-               :fields="currentFields"
-               :originalData="currentData"
-               @close="isModalOpen = false"
-               @submit="handleSubmit"/>
-  </div>
+    <div v-else>
+      <ShowDetail v-for="typeItem in types"
+                  :key="typeItem.id"
+                  :columns="typeColumns"
+                  :item="typeItem"
+                  :showEdit="true"
+                  @edit="handleEdit" />
+    </div>
+
+      <FormModal :title="currentTitle"
+                 :isOpen="isModalOpen"
+                 :fields="currentFields"
+                 :originalData="currentData"
+                 @close="isModalOpen = false"
+                 @submit="handleSubmit" />
+    </div>
 </template>
 
 <style scoped></style>

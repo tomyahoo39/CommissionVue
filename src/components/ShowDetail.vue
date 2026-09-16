@@ -46,7 +46,7 @@
               {{ col.label }}：
             </th>
             <!-- 右欄：資料內容 -->
-            <td class="px-3 text-dark">
+            <td class="px-3 text-dark whitespace-pre-line">
               {{ renderValue(col,item[col.key])}}
             </td>
           </tr>
@@ -71,5 +71,8 @@
   .table-bordered th,
   .table-bordered td {
     border-color: #dee2e6;
+  }
+  .whitespace-pre-line {
+    white-space: pre-line;
   }
 </style>
