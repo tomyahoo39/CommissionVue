@@ -3,7 +3,7 @@ import router from '@/router/router'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 5000,
+  timeout: 10000,
 })
 
 api.interceptors.request.use((config) => {
