@@ -49,7 +49,6 @@ const loginService = {
       isAdminState.value = role === 'Admin'
 
     } catch (error) {
-      console.error('❌ Token 解析失敗:', error)
       isAdminState.value = false
     }
   }

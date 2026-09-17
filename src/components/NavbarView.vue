@@ -46,7 +46,7 @@ const handleLogout = () => {
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/" class="dropdown-item">首頁</RouterLink></li>
-              <li><hr></li>
+              <li><hr v-if="isAdminState"></li>
               <li><RouterLink to="/homeAdmin" class="dropdown-item" v-if="isAdminState">首頁後台設定</RouterLink></li>
             </ul>
           </li>
@@ -60,7 +60,7 @@ const handleLogout = () => {
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/guestImage" class="dropdown-item">委託項目作品</RouterLink></li>
-              <li><hr></li>
+              <li><hr v-if="isAdminState"></li>
               <li><RouterLink to="/image" class="dropdown-item" v-if="isAdminState">圖片設定與上傳</RouterLink></li>
             </ul>
           </li>
@@ -74,7 +74,7 @@ const handleLogout = () => {
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/guestPeriod" class="dropdown-item">委託填單表</RouterLink></li>
-              <li><hr></li>
+              <li><hr v-if="isAdminState"></li>
               <li><RouterLink to="/period" class="dropdown-item" v-if="isAdminState">委託期設定</RouterLink></li>
               <li><RouterLink to="/type" class="dropdown-item" v-if="isAdminState">委託項目設定</RouterLink></li>
               <li><RouterLink to="/social" class="dropdown-item" v-if="isAdminState">社群平台設定</RouterLink></li>
@@ -92,7 +92,7 @@ const handleLogout = () => {
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/guestOrder" class="dropdown-item">目前排單行程</RouterLink></li>
-              <li><hr></li>
+              <li><hr v-if="isAdminState"></li>
               <li><RouterLink to="/order" class="dropdown-item" v-if="isAdminState">後台排單設定</RouterLink></li>
             </ul>
           </li>
@@ -110,7 +110,7 @@ const handleLogout = () => {
               <li>
                 <RouterLink to="/guestQa" class="dropdown-item" active-class="active">Q&A問與答</RouterLink>
               </li>
-              <li><hr></li>
+              <li><hr v-if="isAdminState"></li>
               <li>
                 <RouterLink to="/qa" class="dropdown-item" active-class="active"
                             v-if="isAdminState">後台QA設定</RouterLink>
