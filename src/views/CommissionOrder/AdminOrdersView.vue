@@ -70,6 +70,7 @@
       isLoading.value = false
     } catch (error) {
       console.log(error)
+      alert('找不到該委託期訂單人選')
     } finally {
       isLoading.value = false
     }
@@ -125,10 +126,12 @@
         scheduledDate: formData.scheduledDate ? formData.scheduledDate : null,
       }
       await orderService.editOrder(id, payload)
+      alert('修改成功')
       isModalOpen.value = false
       getAdminOrder()
     } catch (error) {
       console.error('儲存失敗', error)
+      alert('修改失敗，請稍後再試')
     }
   }
 

@@ -197,7 +197,7 @@
 
       <!-- 委託詳細需求說明 -->
       <div class="mb-4">
-        <label for="commissionSetting" class="form-label">委託細節與需求說明</label>
+        <label for="commissionSetting" class="form-label">委託細節與需求說明<span class="text-danger">*</span></label>
         <textarea id="commissionSetting"
                   v-model="formState.commissionSetting"
                   class="form-control"

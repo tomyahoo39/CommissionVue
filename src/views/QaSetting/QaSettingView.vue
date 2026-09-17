@@ -112,13 +112,15 @@ const handleSubmit = async (formData) => {
   try {
     if (formData.id) {
       await qaService.editQa(formData)
+      alert('修改成功')
     } else {
       await qaService.createNewQa(formData)
+      alert('新增成功')
     }
     isModalOpen.value = false
     getQaSetting()
   } catch (error) {
-    console.error('儲存失敗', error)
+    alert('儲存失敗，請稍後再試')
   }
 }
 

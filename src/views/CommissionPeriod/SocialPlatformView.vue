@@ -19,10 +19,8 @@
 
   const getAllSocial = async () => {
     isLoading.value = true
-    console.log(1)
-      try {
-          const response = await socialService.getAllSocial()
-      console.log(2)
+    try {
+      const response = await socialService.getAllSocial()
       socials.value = response.data
       isLoading.value = false
     } catch (error) {
@@ -71,11 +69,13 @@ const editFields = [
       if (formData.id) {
         const { id } = formData
         await socialService.updateSocial(id, formData)
+        alert('修改成功')
         isModalOpen.value = false
         getAllSocial()
       }
       else {
         await socialService.createNewSocial(formData)
+        alert('新增成功')
         isModalOpen.value = false
         getAllSocial()
       }

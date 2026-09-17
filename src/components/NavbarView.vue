@@ -1,5 +1,15 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import loginService, { isAdminState } from '@/services/login'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const handleLogout = () => {
+  loginService.removeToken()
+  router.push('/')
+  alert('已登出系統，將導回首頁')
+}
 </script>
 
 <template>
@@ -36,7 +46,8 @@ import { RouterLink } from 'vue-router'
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/" class="dropdown-item">首頁</RouterLink></li>
-              <li><RouterLink to="/homeAdmin" class="dropdown-item">首頁後台設定</RouterLink></li>
+              <li><hr></li>
+              <li><RouterLink to="/homeAdmin" class="dropdown-item" v-if="isAdminState">首頁後台設定</RouterLink></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -49,7 +60,8 @@ import { RouterLink } from 'vue-router'
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/guestImage" class="dropdown-item">委託項目作品</RouterLink></li>
-              <li><RouterLink to="/image" class="dropdown-item">圖片設定與上傳</RouterLink></li>
+              <li><hr></li>
+              <li><RouterLink to="/image" class="dropdown-item" v-if="isAdminState">圖片設定與上傳</RouterLink></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -62,58 +74,61 @@ import { RouterLink } from 'vue-router'
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/guestPeriod" class="dropdown-item">委託填單表</RouterLink></li>
-              <li><RouterLink to="/period" class="dropdown-item">委託期設定</RouterLink></li>
-              <li><RouterLink to="/type" class="dropdown-item">委託項目設定</RouterLink></li>
-              <li><RouterLink to="/social" class="dropdown-item">社群平台設定</RouterLink></li>
+              <li><hr></li>
+              <li><RouterLink to="/period" class="dropdown-item" v-if="isAdminState">委託期設定</RouterLink></li>
+              <li><RouterLink to="/type" class="dropdown-item" v-if="isAdminState">委託項目設定</RouterLink></li>
+              <li><RouterLink to="/social" class="dropdown-item" v-if="isAdminState">社群平台設定</RouterLink></li>
             </ul>
           </li>
 
           <!-- 下拉選單 1 -->
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
               排單表
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li><RouterLink to="/guestOrder" class="dropdown-item">目前排單行程</RouterLink></li>
-              <li><RouterLink to="/order" class="dropdown-item">後台排單設定</RouterLink></li>
+              <li><hr></li>
+              <li><RouterLink to="/order" class="dropdown-item" v-if="isAdminState">後台排單設定</RouterLink></li>
             </ul>
           </li>
 
           <!-- 下拉選單 2 -->
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
               Q&A資訊
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
               <li>
-                <RouterLink to="/guestQa" class="dropdown-item" active-class="active"
-                  >Q&A問與答</RouterLink
-                >
+                <RouterLink to="/guestQa" class="dropdown-item" active-class="active">Q&A問與答</RouterLink>
               </li>
+              <li><hr></li>
               <li>
                 <RouterLink to="/qa" class="dropdown-item" active-class="active"
-                  >後台QA設定</RouterLink
-                >
+                            v-if="isAdminState">後台QA設定</RouterLink>
               </li>
               <li>
                 <RouterLink to="/showguestQa" class="dropdown-item" active-class="active"
-                  >後台訪客提問資訊</RouterLink
-                >
+                            v-if="isAdminState">後台訪客提問資訊</RouterLink>
               </li>
             </ul>
           </li>
+          <li class="nav-item" v-if="!isAdminState">
+            <RouterLink to="/login" class="nav-link text-white">管理員登入</RouterLink>
+          </li>
+          <div class="d-flex" v-if="isAdminState">
+            <button class="btn btn-outline-light btn-sm" @click="handleLogout">
+              登出系統
+            </button>
+          </div>
         </ul>
       </div>
     </div>

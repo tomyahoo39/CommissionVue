@@ -95,16 +95,18 @@
       if (formData.id) {
         const { id } = formData
         await typeService.updateType(id, formData)
+        alert('修改成功')
         isModalOpen.value = false
         getTypes()
       }
       else {
         await typeService.createNewType(formData)
+        alert('新增成功')
         isModalOpen.value = false
         getTypes()
       }
     } catch (error) {
-      console.error(error)
+      alert('操作失敗，請檢查資料是否正確')
     }
   }
 

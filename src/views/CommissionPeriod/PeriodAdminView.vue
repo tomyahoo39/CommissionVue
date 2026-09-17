@@ -53,10 +53,12 @@
   const handleSubmit = async (formData) => {
     try {
       await periodService.createNewPeriod(formData)
+      alert('新增委託期成功')
       isModalOpen.value = false
       getAllPeriod()
     } catch (error) {
       console.error(error)
+      alert('新增委託期失敗，請稍後再試')
     }
   }
 

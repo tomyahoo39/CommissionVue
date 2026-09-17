@@ -1,6 +1,12 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import NavbarView from './components/NavbarView.vue'
+import { onMounted } from 'vue'
+import loginService from '@/services/login'
+
+onMounted(() => {
+  loginService.updateAdminState()
+})
 </script>
 
 <template>
