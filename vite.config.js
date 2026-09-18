@@ -13,6 +13,9 @@ export default defineConfig({
     },
   },
   server: {
+    watch: {
+      ignored: ['**/.vs/**'],
+    },
     proxy: {
       // 只要前端發送 /api 開頭的請求，Vite 就會自動轉發到 C# 後端
       '/api': {
