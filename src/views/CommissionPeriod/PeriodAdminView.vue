@@ -107,6 +107,9 @@
 </script>
 
 <template>
+  <h3>
+    抽籤人數需與委託期設定人數一致，若後續訂單取消人數不足，請使用補抽功能，補抽人數需小於等於委託期設定人數
+  </h3>
   <label>委託期ID</label>
   <input v-model.number="formState.periodId" />
   <label>該期抽選人數</label>
@@ -115,7 +118,7 @@
   <button type="button" @click="submitReDraw">委託期補抽</button>
   <div class="qa-setting-page">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="h4 mb-0 fw-bold">委託期設定頁面</h2>
+      <h2 class="h4 mb-0 fw-bold">委託期列表</h2>
       <button class="btn btn-primary btn-sm" @click="openAddModal">新增委託期</button>
     </div>
 

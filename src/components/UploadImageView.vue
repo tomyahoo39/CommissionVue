@@ -122,7 +122,7 @@
 
             <!-- 3. 選取檔案 -->
             <div class="mb-3">
-              <label for="file" class="form-label">選擇圖片檔案 <span class="text-danger">*</span></label>
+              <label for="file" class="form-label">選擇圖片檔案(檔案大小不可超過10MB) <span class="text-danger">*</span></label>
               <input id="file" ref="fileInputRef" type="file" accept="image/jpeg, image/png, image/webp" class="form-control" @change="handleFileChange" required />
             </div>
 

@@ -16,12 +16,12 @@
       ]
     },
     {
-      label: '前台圖片是否展示', key: 'isHomeVisible', options: [
+      label: '首頁縮圖是否展示', key: 'isHomeVisible', options: [
         { text: '啟用', value: true },
         { text: '停用', value: false },
       ] },
     {
-      label: '前台圖片展示順序', key: 'homeSortOrder', options: [
+      label: '首頁縮圖展示順序', key: 'homeSortOrder', options: [
         { text: '停用', value: 0 }
       ]
     },
@@ -53,7 +53,7 @@
     { label: '委託項目', key: 'typeName', type: 'text', required: true, placeholder: '請輸入委託項目' },
     { label: '委託底價', key: 'basePrice', type: 'number', required: true, placeholder: '請輸入委託底價數字' },
     { label: '首頁簡短介紹', key: 'shortDescription', type: 'textarea',placeholder: '請輸入首頁介紹' },
-    { label: '完整介紹', key: 'fullDescription', type: 'textarea',placeholder: '請輸入完整介紹' },
+    { label: '作品集完整介紹', key: 'fullDescription', type: 'textarea',placeholder: '請輸入完整介紹' },
   ]
   const editFields = [
     { label: '委託項目', key: 'typeName', type: 'text', required: true, placeholder: '請輸入委託項目' },
@@ -65,12 +65,12 @@
       ]
     },
     {
-      label: '前台圖片是否展示', key: 'isHomeVisible', type: 'select', required: true, placeholder: '請選擇啟用狀態',
+      label: '首頁縮圖是否展示', key: 'isHomeVisible', type: 'select', required: true, placeholder: '請選擇啟用狀態',
       options: [
         { text: '啟用', value: true },
         { text: '停用', value: false },
       ] },
-    { label: '前台圖片展示順序', key: 'homeSortOrder', type: 'number', required: true, placeholder: '請輸入展示順序' },
+    { label: '首頁縮圖展示順序', key: 'homeSortOrder', type: 'number', required: true, placeholder: '請輸入展示順序' },
     { label: '委託底價', key: 'basePrice', type: 'number', required: true, placeholder: '請輸入委託底價數字' },
     { label: '首頁簡短介紹', key: 'shortDescription', type: 'textarea', placeholder: '請輸入首頁介紹' },
     { label: '完整介紹', key: 'fullDescription', type: 'textarea', placeholder: '請輸入完整介紹' },

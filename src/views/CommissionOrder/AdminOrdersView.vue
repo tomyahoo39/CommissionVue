@@ -141,6 +141,7 @@
 </script>
 
 <template>
+  <h3>委託期列表請至導覽列>填單表>委託期設定查詢</h3>
   <label>請輸入委託期ID</label>
   <input v-model="periodId">
   <button type="button" @click="getAdminOrder">確認</button>
