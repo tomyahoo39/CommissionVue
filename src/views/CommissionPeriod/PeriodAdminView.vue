@@ -80,7 +80,7 @@
       getAllPeriod()
     } catch (error) {
       console.error(error)
-      alert('抽籤失敗，請檢查輸入數字是否與委託期一致')
+      alert('抽籤失敗，請檢查1.輸入數字與委託期一致2.該委託期是否已完成抽籤3.補抽人數不可以超過委託期上限4.其他錯誤')
     }
   }
 
