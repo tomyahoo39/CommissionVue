@@ -10,12 +10,6 @@ const router = createRouter({
       component: () => import('../views/Index/IndexView.vue'),
     },
     {
-      path: '/homeAdmin',
-      name: 'homeAdmin',
-      component: () => import('../views/Index/IndexAdminView.vue'),
-      meta: { requiresLogin: true }
-    },
-    {
       path: '/guestImage',
       name: 'guestImage',
       component: () => import('../views/Image/ImageGuestView.vue')

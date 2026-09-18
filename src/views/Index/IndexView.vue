@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import imageService from '@/services/image'
-import indexService from '@/services/index'
 import typeService from '@/services/CommissionType'
 
 
@@ -12,7 +11,6 @@ const router = useRouter()
 const isLoading = ref(false)
 
 const indexData = ref([])
-const homeNotice = ref('')
 const types = ref([])
 
 const BASE_URL = 'https://localhost:7015'
@@ -30,8 +28,6 @@ const getData = async () => {
   try {
     const typeRes = await typeService.getAllType()
     types.value = typeRes.data
-    const noticeRes = await indexService.getIndexNotice()
-    homeNotice.value = noticeRes.data[0].noticeContent
     const res = await imageService.getFirstThumbs()
     indexData.value = res.data
   } catch (error) {
@@ -59,21 +55,63 @@ onMounted(() => {
   </div>
 
   <div v-else>
-    <!-- 1. 委託前須知與規範文字 -->
-    <section  class="mb-5 p-4 rounded bg-light border shadow-sm">
-      <h3 class="h5 fw-bold mb-3 border-bottom pb-2 text-primary">📋 委託前須知與規範</h3>
-      <div class="lh-lg text-dark whitespace-pre-line">
-        <h5>{{ homeNotice}}</h5>
+    <!-- 1. 注意事項 -->
+    <section class="mb-5 py-4">
+      <h3 class="process-title text-center mb-4">/ 注意事項 /</h3>
+
+      <ul class="notice-list mx-auto">
+        <li>委託成立時間認定<strong> 委託人已成年 或 未成年但經監護人同意此委託交易之行為</strong></li>
+        <li><strong>未成年不可委託R18圖</strong></li>
+        <li>會確實告知完成時間，若有延誤必提前通知</li>
+        <li class="text-warning-emphasis fw-bold">委託圖非買斷，不可二次修改、印製商品或有其他營利行為</li>
+        <li>自印收藏或親友贈送等需先告知與討論</li>
+        <li>價格會因人設、構圖等之複雜度去做調整</li>
+        <li>會於社群公開發布加浮水印之委託圖</li>
+        <li class="text-warning-emphasis fw-bold">匯款帳戶僅提供玉山、郵局</li>
+        <li>此網站皆為非商業委託價格，商業委託麻煩以信箱聯繫</li>
+        <li>未列在以上之事宜，歡迎私訊詢問</li>
+      </ul>
+    </section>
+    <!-- 2. 委託流程 -->
+    <section class="mb-5 py-4 text-center">
+      <h3 class="process-title mb-4">/ 委託流程 /</h3>
+
+      <div class="process-content mx-auto">
+        <p class="mb-1 fw-bold">填寫委託表單</p>
+        <p class="mb-1">（於上方導覽列排單表>排單行程公告）</p>
+        <p class="mb-1">▼</p>
+
+        <p class="mb-1 fw-bold">私訊了解需求與報價</p>
+        <p class="mb-1">▽</p>
+
+        <p class="mb-1 fw-bold">支付半款/全款(3日內)</p>
+        <p class="mb-1 text-warning-emphasis fw-bold">(驚喜包需付全款)</p>
+        <p class="mb-1">▼</p>
+
+        <p class="mb-1 fw-bold">確認草稿(可修改2次)</p>
+        <p class="mb-1">▽</p>
+
+        <p class="mb-1 fw-bold">確認線稿與底色(可修改1次)</p>
+        <p class="mb-1">▼</p>
+
+        <p class="mb-1 fw-bold">支付剩餘款項(3日內)</p>
+        <p class="mb-1">▽</p>
+
+        <p class="mb-3 fw-bold">確認完稿</p>
+
+        <p class="mb-0">完稿僅能修改小細節或與委託設定不符之錯誤 <span class="text-danger">!</span></p>
       </div>
     </section>
 
+    
+
     <!-- 2. 四大分類卡片列表 -->
     <section>
-      <h3 class="h5 fw-bold mb-4">🎨 委託項目作品覽集</h3>
+      <h3 class="h5 fw-bold mb-4">委託項目作品覽集</h3>
 
       <div class="row g-4">
         <div v-for="item in indexData" :key="item.commissionTypeId" class="col-12 col-md-6">
-          <div class="card h-100 shadow-sm cursor-pointer hover-card"
+          <div class="card h-100 shadow-sm cursor-pointer hover-card card-rounded"
                @click="goToImage(item.commissionTypeId)">
             <div class="row g-0 h-100">
               <!-- 左側：自動撈取的第一張縮圖 -->
@@ -107,7 +145,7 @@ onMounted(() => {
                 </div>
 
                 <div class="text-end">
-                  <span class="btn btn-sm btn-outline-primary rounded-pill">
+                  <span class="btn btn-sm rounded-pill commission-btn">
                     前往作品集 ➔
                   </span>
                 </div>
@@ -139,4 +177,49 @@ onMounted(() => {
       transform: translateY(-3px);
       box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
     }
+
+  .card-rounded {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .commission-btn {
+    border: 1px solid #666;
+    color: #666;
+    background-color: #fff;
+    transition: all 0.2s ease;
+  }
+
+  .commission-btn:hover {
+    border-color: #666;
+    color: #fff;
+    background-color: #666;
+  }
+
+  .process-title {
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #4b4b4b;
+  }
+
+  .process-content {
+    max-width: 620px;
+    font-size: 1.12rem;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .notice-list {
+    max-width: 620px;
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    padding-left: 1.25rem;
+    text-align: left;
+    list-style-position: outside;
+  }
+
+  .notice-list li {
+    margin-bottom: 0.6rem;
+  }
 </style>
