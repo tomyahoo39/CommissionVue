@@ -2,7 +2,7 @@
 
 本專案為「繪圖委託管理系統」的前端 Single Page Application (SPA)，提供訪客瀏覽作品集、線上填寫委託單、查看進度看板，以及提供創作者（管理者）進行後台訂單抽籤、排程與全站設定。
 
-🔗 **後端 API 儲存庫**：[CommissionManagement (ASP.NET Core API)](https://github.com/tomyahoo39/CommissionManagement)
+🔗 **後端 API 儲存庫**：[CommissionWebAPI (ASP.NET Core API)](https://github.com/tomyahoo39/CommissionManagement)
 
 ---
 
