@@ -96,7 +96,7 @@ onMounted(() => {
           <div class="card-body p-4">
             <h3 class="h5 fw-bold text-center mb-3">如果有問題請留言</h3>
             <p class="text-muted text-center fs-7 mb-4">
-              請留下您的 Email 與問題，我將會抽空回覆您。
+              請留下您的 Email 與問題，我會盡快回覆您。
             </p>
 
             <!-- 成功送出提示訊息 -->
@@ -106,7 +106,7 @@ onMounted(() => {
               role="alert"
             >
               <i class="bi bi-check-circle-fill me-2"></i>
-              <div>問題已成功送出！我們會盡快回覆您。</div>
+              <div>問題已成功送出！我會盡快回覆您。</div>
             </div>
 
             <!-- 提問表單 -->
@@ -212,9 +212,9 @@ onMounted(() => {
 }
 
 .qa-success-alert {
-  border: 1px solid #d6c8b9;
-  background: #faf7f2;
-  color: #3d3c3b;
+  border: 1px solid #b9dfc2;
+  background: #e8f6eb;
+  color: #2f6b3a;
 }
 
 .qa-input {

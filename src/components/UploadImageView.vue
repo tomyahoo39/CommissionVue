@@ -1,5 +1,6 @@
 <script setup>
   import { ref,reactive,computed,onMounted } from 'vue'
+  import Swal from 'sweetalert2'
   import imageService from '@/services/image'
   import typeService from '@/services/CommissionType'
 
@@ -59,7 +60,12 @@
 
   const handleSubmit = async () => {
     if (!formState.file || !formState.commissionTypeId || !formState.title) {
-      alert('請完整填入所需資料')
+      await Swal.fire({
+        icon: 'warning',
+        title: '資料未完整',
+        text: '請完整填入所需資料',
+        confirmButtonText: '確認'
+      })
       return
     }
     isUploading.value = true
@@ -70,7 +76,12 @@
       formData.append('File', formState.file)
 
       await imageService.uploadNewImage(formData)
-      alert('圖片上傳成功')
+      await Swal.fire({
+        icon: 'success',
+        title: '上傳成功',
+        text: '圖片上傳成功',
+        confirmButtonText: '確認'
+      })
 
       resetForm()
       emit('submit')
@@ -81,6 +92,12 @@
       }
     } catch (error) {
       console.error(error)
+      await Swal.fire({
+        icon: 'error',
+        title: '上傳失敗',
+        text: '請稍後再試',
+        confirmButtonText: '確認'
+      })
     } finally {
       isUploading.value = false
     }

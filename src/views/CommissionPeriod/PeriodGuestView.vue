@@ -1,5 +1,6 @@
 <script setup>
   import { ref,reactive, onMounted,computed } from 'vue'
+  import Swal from 'sweetalert2'
   import periodService from '@/services/commissionPeriod'
   import typeService from '@/services/CommissionType'
   import socialService from '@/services/SocialPlatform'
@@ -66,7 +67,12 @@
         commissionTypeId: formState.commissionTypeId,
       }
       await orderService.createNewOrder(payload)
-      alert('委託已送出')
+      await Swal.fire({
+        icon: 'success',
+        title: '送出成功',
+        text: '委託已送出',
+        confirmButtonText: '確認'
+      })
 
       Object.assign(formState, {
         title: '',
@@ -78,7 +84,12 @@
       })
     } catch (error) {
       console.error(error)
-      alert('送出失敗，請檢查是否完整填寫')
+      await Swal.fire({
+        icon: 'error',
+        title: '送出失敗',
+        html: '請檢查是否完整填寫。<br>同個Email不可重複填寫當期委託表單。',
+        confirmButtonText: '確認'
+      })
     } finally {
       isSubmit.value = false
     }
@@ -119,6 +130,7 @@
 
   <div class="container py-4 period-form-wrap" v-if="activePeriod">
     <h2 class="h4 mb-4 fw-bold period-title text-center">填寫委託申請表單</h2>
+    <div class="period-email-note mb-3">提醒：同期委託表單不可使用重複 Email 送出訂單。</div>
 
     <form @submit.prevent="handleSubmit" class="card p-4 shadow-sm period-form-card" v-if="activePeriod">
       <!-- 標題 -->
@@ -289,6 +301,16 @@
     font-size: 1.05rem;
     font-weight: 500;
     line-height: 1.7;
+  }
+
+  .period-email-note {
+    padding: 0.55rem 0.85rem;
+    border: 1px solid #d8c4a3;
+    border-radius: 10px;
+    background: #fff7ea;
+    color: #8a6b3d;
+    font-weight: 600;
+    line-height: 1.5;
   }
 
   /* 當輸入框聚焦 (focus) 時，將預設提示文字隱藏 */

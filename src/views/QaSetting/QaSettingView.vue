@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import Swal from 'sweetalert2'
 import qaService from '@/services/qaSetting.js'
 import DataTable from '@/components/DataTable.vue'
 import FormModal from '@/components/FormModal.vue'
@@ -117,21 +118,51 @@ const handleSubmit = async (formData) => {
   try {
     if (formData.id) {
       await qaService.editQa(formData)
-      alert('修改成功')
+      await Swal.fire({
+        icon: 'success',
+        title: '修改成功',
+        text: 'QA 問答已更新',
+        confirmButtonText: '確認'
+      })
     } else {
       await qaService.createNewQa(formData)
-      alert('新增成功')
+      await Swal.fire({
+        icon: 'success',
+        title: '新增成功',
+        text: 'QA 問答已新增',
+        confirmButtonText: '確認'
+      })
     }
     isModalOpen.value = false
     getQaSetting()
   } catch (error) {
-    alert('儲存失敗，請稍後再試')
+    await Swal.fire({
+      icon: 'error',
+      title: '儲存失敗',
+      text: '請稍後再試',
+      confirmButtonText: '確認'
+    })
   }
 }
 
 const handleDelete = async (item) => {
-  if (confirm(`確定要刪除${item.id}的Q&A嗎?`)) {
+  const result = await Swal.fire({
+    icon: 'warning',
+    title: '確認刪除',
+    text: `確定要刪除 ${item.id} 的 Q&A 嗎？`,
+    showCancelButton: true,
+    confirmButtonText: '確認刪除',
+    cancelButtonText: '取消'
+  })
+
+  if (result.isConfirmed) {
     await qaService.deleteQa(item.id)
+    await Swal.fire({
+      icon: 'success',
+      title: '刪除成功',
+      text: 'Q&A 已刪除',
+      confirmButtonText: '確認'
+    })
     getQaSetting()
   }
 }

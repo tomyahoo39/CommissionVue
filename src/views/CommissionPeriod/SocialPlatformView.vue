@@ -1,5 +1,6 @@
 <script setup>
   import { ref , onMounted } from 'vue'
+  import Swal from 'sweetalert2'
   import socialService from '@/services/socialPlatform'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
@@ -73,18 +74,34 @@ const editFields = [
       if (formData.id) {
         const { id } = formData
         await socialService.updateSocial(id, formData)
-        alert('修改成功')
+        await Swal.fire({
+          icon: 'success',
+          title: '修改成功',
+          text: '社群平台已更新',
+          confirmButtonText: '確認'
+        })
         isModalOpen.value = false
         getAllSocial()
       }
       else {
         await socialService.createNewSocial(formData)
-        alert('新增成功')
+        await Swal.fire({
+          icon: 'success',
+          title: '新增成功',
+          text: '社群平台已新增',
+          confirmButtonText: '確認'
+        })
         isModalOpen.value = false
         getAllSocial()
       }
     } catch (error) {
       console.error(error)
+      await Swal.fire({
+        icon: 'error',
+        title: '操作失敗',
+        text: '請檢查資料是否正確',
+        confirmButtonText: '確認'
+      })
     }
   }
 

@@ -1,5 +1,6 @@
 <script setup>
   import {ref,computed,onMounted } from 'vue'
+  import Swal from 'sweetalert2'
   import UploadImage from '@/components/UploadImageView.vue'
   import imageService from '@/services/image'
   import typeService from '@/services/CommissionType'
@@ -91,11 +92,21 @@ const reindexSortOrder = () => {
         return imageService.updateImage(img.id, update)
       })
       await Promise.all(updatePromises)
-      alert('所有圖片更新成功')
+      await Swal.fire({
+        icon: 'success',
+        title: '更新成功',
+        text: '所有圖片更新成功',
+        confirmButtonText: '確認'
+      })
       getImagesByTypeId(selectedTypeId.value)
     } catch (error) {
       console.error(error)
-      alert('更新失敗')
+      await Swal.fire({
+        icon: 'error',
+        title: '更新失敗',
+        text: '請稍後再試',
+        confirmButtonText: '確認'
+      })
     } finally {
       isSaving.value = false
     }

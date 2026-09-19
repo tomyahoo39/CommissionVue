@@ -1,5 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
+  import Swal from 'sweetalert2'
   import typeService from '@/services/commissionType'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
@@ -104,18 +105,33 @@
       if (formData.id) {
         const { id } = formData
         await typeService.updateType(id, formData)
-        alert('修改成功')
+        await Swal.fire({
+          icon: 'success',
+          title: '修改成功',
+          text: '委託項目已更新',
+          confirmButtonText: '確認'
+        })
         isModalOpen.value = false
         getTypes()
       }
       else {
         await typeService.createNewType(formData)
-        alert('新增成功')
+        await Swal.fire({
+          icon: 'success',
+          title: '新增成功',
+          text: '委託項目已新增',
+          confirmButtonText: '確認'
+        })
         isModalOpen.value = false
         getTypes()
       }
     } catch (error) {
-      alert('操作失敗，請檢查資料是否正確')
+      await Swal.fire({
+        icon: 'error',
+        title: '操作失敗',
+        html: '請檢查資料是否完整填寫 <br>首頁縮圖展示上限數量只能設定四筆',
+        confirmButtonText: '確認'
+      })
     }
   }
 

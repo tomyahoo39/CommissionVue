@@ -68,7 +68,7 @@ const handleLogout = () => {
             <ul class="dropdown-menu dropdown-menu-end">
               <li><RouterLink to="/guestPeriod" class="dropdown-item" active-class="active">委託填單表</RouterLink></li>
               <li><hr v-if="isAdminState" /></li>
-              <li><RouterLink to="/period" class="dropdown-item" active-class="active" v-if="isAdminState">委託期設定</RouterLink></li>
+              <li><RouterLink to="/period" class="dropdown-item" active-class="active" v-if="isAdminState">委託表單設定</RouterLink></li>
               <li><RouterLink to="/type" class="dropdown-item" active-class="active" v-if="isAdminState">委託項目設定</RouterLink></li>
               <li><RouterLink to="/social" class="dropdown-item" active-class="active" v-if="isAdminState">社群平台設定</RouterLink></li>
             </ul>

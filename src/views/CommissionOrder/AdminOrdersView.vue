@@ -1,5 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
+  import Swal from 'sweetalert2'
   import orderService from '@/services/commissionOrder'
   import ShowDetail from '@/components/ShowDetail.vue'
   import FormModal from '@/components/FormModal.vue'
@@ -16,7 +17,6 @@
     { label: '連絡社群', key: 'socialName' },
     { label: '社群網址', key: 'socialUrl' },
     { label: '委託項目', key: 'typeName' },
-    { label: '委託設定', key: 'commissionSetting' },
     {
       label: '付款狀態', key: 'paymentStatus', options: [
         { text: '未付款', value: 1 },
@@ -58,7 +58,7 @@
       }
     },
     { label: '備註', key: 'adminNote'},
-    { label: '安排日期', key: 'scheduledDate'},
+    { label: '交稿日期', key: 'scheduledDate'},
     { label: '建立時間', key: 'createdAt' },
   ]
   const periodId = ref('')
@@ -87,7 +87,12 @@
       isLoading.value = false
     } catch (error) {
       console.log(error)
-      alert('找不到該委託期訂單人選')
+      await Swal.fire({
+        icon: 'error',
+        title: '查詢失敗',
+        text: '找不到該委託表單訂單人選',
+        confirmButtonText: '確認'
+      })
     } finally {
       isLoading.value = false
     }
@@ -122,7 +127,7 @@
       ]
     },
     { label: '備註', key: 'adminNote', type: 'textarea', placeholder: '請輸入備註內容' },
-    { label: '安排日期(不能小於今天)', key: 'scheduledDate', type: 'date', placeholder: '輸入格式:xxxx-xx-xx' },
+    { label: '交稿日期(不能小於今天)', key: 'scheduledDate', type: 'date', placeholder: '輸入格式:xxxx-xx-xx' },
   ]
 
   const handleEdit = (item) => {
@@ -143,12 +148,22 @@
         scheduledDate: formData.scheduledDate ? formData.scheduledDate : null,
       }
       await orderService.editOrder(id, payload)
-      alert('修改成功')
+      await Swal.fire({
+        icon: 'success',
+        title: '修改成功',
+        text: '訂單狀態已更新',
+        confirmButtonText: '確認'
+      })
       isModalOpen.value = false
       getAdminOrder()
     } catch (error) {
       console.error('儲存失敗', error)
-      alert('修改失敗，請稍後再試')
+      await Swal.fire({
+        icon: 'error',
+        title: '修改失敗',
+        text: '請稍後再試',
+        confirmButtonText: '確認'
+      })
     }
   }
 
@@ -161,11 +176,11 @@
   <div class="container py-4 admin-order-page">
     <div class="note-card p-4 mb-4">
       <h3 class="h5 fw-bold mb-2 page-title">委託訂單管理</h3>
-      <p class="mb-3 page-subtitle">委託期列表請至導覽列 &gt; 填單表 &gt; 委託期設定查詢</p>
+      <p class="mb-3 page-subtitle">委託表單列表請至導覽列 &gt; 填單表 &gt; 委託表單設定查詢</p>
 
       <div class="row g-3 align-items-end">
         <div class="col-12 col-md-4">
-          <label class="form-label mb-1">請輸入委託期ID</label>
+          <label class="form-label mb-1">請輸入委託表單ID</label>
           <input v-model="periodId" type="number" class="form-control period-input" />
         </div>
         <div class="col-12 col-md-3">
@@ -180,7 +195,7 @@
     </div>
 
     <div v-else-if="orderList.length === 0" class="empty-card text-center py-5 text-muted">
-      目前尚無該委託期的訂單資料。
+      目前尚無該委託表單的訂單資料。
     </div>
 
     <div v-else>

@@ -1,5 +1,6 @@
 <script setup>
   import { ref,reactive, onMounted } from 'vue'
+  import Swal from 'sweetalert2'
   import periodService from '@/services/commissionPeriod'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
@@ -57,12 +58,22 @@
   const handleSubmit = async (formData) => {
     try {
       await periodService.createNewPeriod(formData)
-      alert('新增委託期成功')
+      await Swal.fire({
+        icon: 'success',
+        title: '新增成功',
+        text: '新增委託期成功',
+        confirmButtonText: '確認'
+      })
       isModalOpen.value = false
       getAllPeriod()
     } catch (error) {
       console.error(error)
-      alert('新增委託期失敗，請稍後再試')
+      await Swal.fire({
+        icon: 'error',
+        title: '新增失敗',
+        text: '新增委託期失敗，請稍後再試',
+        confirmButtonText: '確認'
+      })
     }
   }
 
@@ -78,13 +89,23 @@
         drawCount:formState.drawCount
       }
       await orderService.drawOrder(payload)
-      alert('抽籤完成')
+      await Swal.fire({
+        icon: 'success',
+        title: '抽籤完成',
+        text: '委託表單抽籤完成',
+        confirmButtonText: '確認'
+      })
       formState.periodId = ''
       formState.drawCount = ''
       getAllPeriod()
     } catch (error) {
       console.error(error)
-      alert('抽籤失敗，請檢查1.輸入數字與委託期一致2.該委託期是否已完成抽籤3.補抽人數不可以超過委託期上限4.其他錯誤')
+      await Swal.fire({
+        icon: 'error',
+        title: '抽籤失敗',
+        html: '請檢查以下項目：<br>1. 輸入數字與委託期一致<br>2. 該委託期是否已完成抽籤<br>3. 補抽人數不可超過委託期上限<br>4. 其他系統錯誤',
+        confirmButtonText: '確認'
+      })
     }
   }
 
@@ -95,13 +116,23 @@
         drawCount: formState.drawCount
       }
       await orderService.RedrawOrder(payload)
-      alert('補抽完成')
+      await Swal.fire({
+        icon: 'success',
+        title: '補抽完成',
+        text: '委託表單補抽完成',
+        confirmButtonText: '確認'
+      })
       formState.periodId = ''
       formState.drawCount = ''
       getAllPeriod()
     } catch (error) {
       console.error(error)
-      alert('補抽失敗，請檢查輸入數字是否超出委託期人數設定')
+      await Swal.fire({
+        icon: 'error',
+        title: '補抽失敗',
+        text: '請檢查輸入數字是否超出委託期人數設定',
+        confirmButtonText: '確認'
+      })
     }
   }
 

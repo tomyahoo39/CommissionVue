@@ -17,8 +17,9 @@
         { text: '已付全款', value: 3 }
       ],
       valueClassMap: {
-        1: 'text-warning-emphasis fw-bold',
-        2: 'text-warning-emphasis fw-bold'
+        1: 'status-pill status-disabled',
+        2: 'status-pill status-pending',
+        3: 'status-pill status-enabled'
       }
     },
     {
@@ -30,12 +31,14 @@
         { text: '已取消', value: 5 }
       ],
       valueClassMap: {
-        1: 'text-warning-emphasis fw-bold',
-        2: 'text-warning-emphasis fw-bold',
-        3: 'text-warning-emphasis fw-bold'
+        1: 'status-pill status-pending',
+        2: 'status-pill status-pending',
+        3: 'status-pill status-pending',
+        4: 'status-pill status-enabled',
+        5: 'status-pill status-disabled'
       }
     },
-      { label: '安排日期', key: 'scheduledDate' },
+      { label: '交稿日期', key: 'scheduledDate' },
   ]
 
 
@@ -135,5 +138,31 @@
 
 .orders-table-wrap :deep(tbody td) {
   color: #666;
+}
+
+.orders-table-wrap :deep(.status-pill) {
+  display: inline-block;
+  padding: 0.12rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.orders-table-wrap :deep(.status-enabled) {
+  color: #2f6b3a;
+  background: #e8f6eb;
+  border: 1px solid #b9dfc2;
+}
+
+.orders-table-wrap :deep(.status-pending) {
+  color: #8a5a18;
+  background: #fff4df;
+  border: 1px solid #f0d4a3;
+}
+
+.orders-table-wrap :deep(.status-disabled) {
+  color: #8f3a42;
+  background: #fdecef;
+  border: 1px solid #f3c9d0;
 }
 </style>
