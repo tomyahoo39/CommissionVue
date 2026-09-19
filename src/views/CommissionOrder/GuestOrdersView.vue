@@ -15,7 +15,11 @@
         { text: '未付款', value: 1 },
         { text: '已付訂金', value: 2 },
         { text: '已付全款', value: 3 }
-      ]
+      ],
+      valueClassMap: {
+        1: 'text-warning-emphasis fw-bold',
+        2: 'text-warning-emphasis fw-bold'
+      }
     },
     {
       label: '稿件狀態', key: 'workStatus', options: [
@@ -24,7 +28,12 @@
         { text: '進行中', value: 3 },
         { text: '已完成', value: 4 },
         { text: '已取消', value: 5 }
-      ]
+      ],
+      valueClassMap: {
+        1: 'text-warning-emphasis fw-bold',
+        2: 'text-warning-emphasis fw-bold',
+        3: 'text-warning-emphasis fw-bold'
+      }
     },
       { label: '安排日期', key: 'scheduledDate' },
   ]
@@ -51,23 +60,80 @@
 <template>
 
   <div class="container py-4">
+    <h2 class="h4 fw-bold mb-3 guest-order-title">目前排單行程</h2>
+    <p class="guest-order-subtitle">以下為目前公開的委託排單與進度資訊</p>
+
     <!-- 載入中動畫區塊 -->
-    <div v-if="isLoading" class="text-center py-5">
-      <div class="spinner-border text-primary" role="status"></div>
+    <div v-if="isLoading" class="text-center py-5 text-muted">
+      <div class="spinner-border spinner-border-sm me-2 loading-spinner" role="status"></div>
+      資料載入中...
     </div>
 
     <!-- 無資料提示區塊 -->
-    <div v-else-if="guestOrders.length === 0" class="card p-5 text-center text-muted shadow-sm">
+    <div v-else-if="guestOrders.length === 0" class="orders-empty-card p-5 text-center text-muted shadow-sm">
       目前尚無任何委託訂單資料。
     </div>
 
     <!-- 訂單表格 -->
-    <DataTable v-else
-               :columns="orderColumns"
-               :items="guestOrders"
-               :show-edit="false"
-               :show-delete="false" />
+    <div v-else class="orders-table-wrap">
+      <DataTable :columns="orderColumns"
+                 :items="guestOrders"
+                 :show-edit="false"
+                 :show-delete="false" />
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.guest-order-title {
+  color: #3d3c3b;
+  letter-spacing: 0.02em;
+}
+
+.guest-order-subtitle {
+  margin-top: -0.2rem;
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.98rem;
+}
+
+.loading-spinner {
+  color: #947659;
+}
+
+.orders-empty-card {
+  border: 1px dashed #d6c8b9;
+  border-radius: 16px;
+  background: #faf7f2;
+}
+
+.orders-table-wrap {
+  border: 1px solid #e6ddd3;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fffdf9 0%, #f7f4ee 100%);
+  box-shadow: none;
+  padding: 0.35rem;
+}
+
+.orders-table-wrap :deep(.table-responsive) {
+  border-radius: 12px;
+  box-shadow: none !important;
+}
+
+.orders-table-wrap :deep(.table) {
+  margin-bottom: 0;
+}
+
+.orders-table-wrap :deep(.table-dark) {
+  --bs-table-bg: #f2f2f2;
+  --bs-table-color: #3d3c3b;
+}
+
+.orders-table-wrap :deep(.table-hover tbody tr:hover) {
+  background-color: rgba(148, 118, 89, 0.08) !important;
+}
+
+.orders-table-wrap :deep(tbody td) {
+  color: #666;
+}
+</style>

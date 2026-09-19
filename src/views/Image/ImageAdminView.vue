@@ -215,17 +215,42 @@ const reindexSortOrder = () => {
                  @submit="handleSubmit" />
 
     <div v-if="previewImageUrl"
-         class="modal fade show d-block bg-dark bg-opacity-75"
+         class="modal fade show d-block bg-dark bg-opacity-75 preview-overlay"
          tabindex="-1"
          @click.self="previewImageUrl = null">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content bg-transparent border-0 text-end">
-          <button type="button" class="btn-close btn-close-white mb-2 ms-auto" @click="previewImageUrl = null"></button>
-          <img :src="previewImageUrl" class="img-fluid rounded shadow" style="max-height: 80vh; object-fit: contain;" />
+      <div class="modal-dialog modal-dialog-centered preview-modal-dialog">
+        <div class="modal-content bg-transparent border-0 text-end preview-modal-content" @click="previewImageUrl = null">
+          <button type="button" class="btn-close btn-close-white mb-2 ms-auto" @click.stop="previewImageUrl = null"></button>
+          <img :src="previewImageUrl" class="img-fluid rounded shadow preview-full-image" @click.stop />
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.preview-overlay {
+  z-index: 2000;
+}
+
+.preview-modal-dialog {
+  max-width: 96vw;
+  margin: 0.25rem auto;
+}
+
+.preview-modal-content {
+  width: 100%;
+  min-height: 94vh;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+
+.preview-full-image {
+  width: auto;
+  max-width: 96vw;
+  max-height: 94vh;
+  object-fit: contain;
+  cursor: default;
+}
+</style>

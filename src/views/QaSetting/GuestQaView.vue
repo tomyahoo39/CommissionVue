@@ -54,11 +54,12 @@ onMounted(() => {
 
 <template>
   <div class="container py-4">
-    <h2 class="text-center fw-bold mb-4">常見問題 Q&A</h2>
+    <h2 class="text-center fw-bold mb-4 qa-title">常見問題 Q&A</h2>
 
     <!-- 載入中 -->
-    <div v-if="isLoading" class="text-center py-5">
-      <div class="spinner-border text-primary" role="status"></div>
+    <div v-if="isLoading" class="text-center py-5 text-muted">
+      <div class="spinner-border spinner-border-sm me-2 qa-spinner" role="status"></div>
+      資料載入中...
     </div>
 
     <!-- QA 列表 -->
@@ -66,20 +67,20 @@ onMounted(() => {
       <div
         v-for="(item, index) in qaList"
         :key="item.id || index"
-        class="card mb-3 shadow-sm border-0"
+        class="card mb-3 qa-card"
       >
         <!-- 問題列 (橫線/頁首) -->
         <div
-          class="card-header bg-primary text-white font-weight-bold d-flex align-items-center py-3"
+          class="card-header qa-question-header d-flex align-items-center py-3"
         >
-          <span class="badge bg-white text-primary me-2 fs-6">Q{{ index + 1 }}</span>
+          <span class="badge qa-question-badge text-warning-emphasis me-2 fs-5 fw-bold">Q{{ index + 1 }}</span>
           <span class="fs-5">{{ item.question }}</span>
         </div>
 
         <!-- 答案列 (內文) -->
-        <div class="card-body bg-light text-secondary py-3 px-4">
+        <div class="card-body qa-answer-body py-3 px-4">
           <div class="d-flex">
-            <strong class="text-primary me-2 fs-5">A:</strong>
+            <strong class="qa-answer-label me-2 fs-5">A:</strong>
             <p class="mb-0 fs-6 align-self-center text-dark">
               {{ item.answer }}
             </p>
@@ -91,7 +92,7 @@ onMounted(() => {
     <!-- 訪客提問區塊 -->
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6">
-        <div class="card shadow-sm border-0">
+        <div class="card qa-form-card">
           <div class="card-body p-4">
             <h3 class="h5 fw-bold text-center mb-3">如果有問題請留言</h3>
             <p class="text-muted text-center fs-7 mb-4">
@@ -101,7 +102,7 @@ onMounted(() => {
             <!-- 成功送出提示訊息 -->
             <div
               v-if="submitSuccess"
-              class="alert alert-success d-flex align-items-center"
+              class="alert qa-success-alert d-flex align-items-center"
               role="alert"
             >
               <i class="bi bi-check-circle-fill me-2"></i>
@@ -119,7 +120,7 @@ onMounted(() => {
                   id="guestEmail"
                   v-model="newQuestion.email"
                   type="email"
-                  class="form-control"
+                  class="form-control qa-input"
                   placeholder="xxx@example.com"
                   required
                 />
@@ -133,7 +134,7 @@ onMounted(() => {
                 <textarea
                   id="guestQuestion"
                   v-model="newQuestion.question"
-                  class="form-control"
+                  class="form-control qa-input"
                   rows="4"
                   placeholder="請詳細描述您的問題"
                   required
@@ -142,7 +143,7 @@ onMounted(() => {
 
               <!-- 送出按鈕 -->
               <div class="d-grid">
-                <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                <button type="submit" class="btn qa-submit-btn" :disabled="isSubmitting">
                   <span
                     v-if="isSubmitting"
                     class="spinner-border spinner-border-sm me-2"
@@ -159,4 +160,86 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.qa-title {
+  color: #3d3c3b;
+  letter-spacing: 0.02em;
+}
+
+.qa-spinner {
+  color: #947659;
+}
+
+.qa-list {
+  margin-bottom: 3.5rem;
+}
+
+.qa-card {
+  border: 1px solid #e6ddd3;
+  border-radius: 16px;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.qa-question-header {
+  background: #f2f2f2;
+  color: #3d3c3b;
+  font-weight: 600;
+  border-bottom: 1px solid #e6ddd3;
+}
+
+.qa-question-badge {
+  background: transparent !important;
+  color: var(--bs-warning-text-emphasis) !important;
+  box-shadow: none;
+  font-weight: 700;
+}
+
+.qa-answer-body {
+  background: #fff;
+  color: #666;
+}
+
+.qa-answer-label {
+  color: #947659;
+}
+
+.qa-form-card {
+  border: 1px solid #e6ddd3;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fffdf9 0%, #f7f4ee 100%);
+  box-shadow: none;
+}
+
+.qa-success-alert {
+  border: 1px solid #d6c8b9;
+  background: #faf7f2;
+  color: #3d3c3b;
+}
+
+.qa-input {
+  border: 1px solid #d8cec2;
+  border-radius: 10px;
+  background-color: #fffdfb;
+  color: #666;
+}
+
+.qa-input:focus {
+  border-color: #947659;
+  box-shadow: 0 0 0 0.2rem rgba(148, 118, 89, 0.15);
+}
+
+.qa-submit-btn {
+  border: 1px solid #666;
+  border-radius: 999px;
+  color: #666;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.qa-submit-btn:hover {
+  border-color: #666;
+  color: #fff;
+  background: #666;
+}
+</style>
