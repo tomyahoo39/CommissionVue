@@ -78,7 +78,7 @@ onMounted(() => {
 
       <div class="process-content mx-auto">
         <p class="mb-1 fw-bold">填寫委託表單</p>
-        <p class="mb-1">（於上方導覽列排單表>排單行程公告）</p>
+        <p class="mb-1">（於上方導覽列填單表>委託填單表）</p>
         <p class="mb-1">▼</p>
 
         <p class="mb-1 fw-bold">私訊了解需求與報價</p>
@@ -107,7 +107,7 @@ onMounted(() => {
 
     <!-- 2. 四大分類卡片列表 -->
     <section>
-      <h3 class="h5 fw-bold mb-4">委託項目作品覽集</h3>
+      <h3 class="h5 fw-bold mb-4">委託項目</h3>
 
       <div class="row g-4">
         <div v-for="item in indexData" :key="item.commissionTypeId" class="col-12 col-md-6">

@@ -9,14 +9,18 @@
   const periods = ref([])
   const periodColumns = [
     { label: '編號', key: 'id' },
-    { label: '委託期名稱', key: 'title' },
+    { label: '委託表單名稱', key: 'title' },
     { label: '填單開始時間', key: 'openAt' },
     { label: '填單結束時間', key: 'closeAt' },
     {
       label: '填單狀態', key: 'ststus', options: [
         { text: '收件中', value: 1 },
         { text: '抽籤已完成', value: 2 },
-      ]
+      ],
+      valueClassMap: {
+        1: 'status-pill status-pending',
+        2: 'status-pill status-complete'
+      }
     },
     { label: '最大中選人數', key: 'maxWinners' },
     { label: '建立時間', key: 'createdAt' },
@@ -38,7 +42,7 @@
   const currentTitle = ref()
   const isModalOpen = ref(false)
   const currentFields = [
-    { label: '委託期名稱', key: 'title', type: 'text', required: true, placeholder: '請輸入委託期名稱' },
+    { label: '委託表單名稱', key: 'title', type: 'text', required: true, placeholder: '請輸入委託表單名稱' },
     { label: '填單開始時間', key: 'openAt', type: 'date', required: true, placeholder: '開始時間' },
     { label: '填單結束時間', key: 'closeAt', type: 'date', required: true, placeholder: '結束時間' },
     { label: '最大中選人數', key: 'maxWinners', type: 'number', required: true, placeholder: '請輸入數字' },
@@ -46,7 +50,7 @@
   const currentData = ref({})
 
   const openAddModal = () =>{
-    currentTitle.value = '新增委託期'
+    currentTitle.value = '新增委託表單'
     isModalOpen.value = true
   }
 
@@ -115,7 +119,7 @@
       </p>
       <div class="row g-3 align-items-end">
         <div class="col-12 col-md-4">
-          <label class="form-label mb-1">委託期ID</label>
+          <label class="form-label mb-1">委託表單ID</label>
           <input v-model.number="formState.periodId" type="number" class="form-control period-input" />
         </div>
         <div class="col-12 col-md-4">
@@ -123,15 +127,15 @@
           <input v-model.number="formState.drawCount" type="number" class="form-control period-input" />
         </div>
         <div class="col-12 col-md-4 d-flex gap-2">
-          <button type="button" class="btn period-btn flex-fill" @click="submitDraw">委託期抽選</button>
-          <button type="button" class="btn period-btn flex-fill" @click="submitReDraw">委託期補抽</button>
+          <button type="button" class="btn period-btn flex-fill" @click="submitDraw">委託表單抽選</button>
+          <button type="button" class="btn period-btn flex-fill" @click="submitReDraw">委託表單補抽</button>
         </div>
       </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="h4 mb-0 fw-bold period-title">委託期列表</h2>
-      <button class="btn period-btn" @click="openAddModal">新增委託期</button>
+      <h2 class="h4 mb-0 fw-bold period-title">委託表單列表</h2>
+      <button class="btn period-btn" @click="openAddModal">新增委託表單</button>
     </div>
 
     <!-- 載入中提示 -->
@@ -219,5 +223,26 @@
 
 .period-table-wrap :deep(.table-hover tbody tr:hover) {
   background-color: rgba(148, 118, 89, 0.08) !important;
+}
+
+.period-table-wrap :deep(.status-pill) {
+  display: inline-block;
+  padding: 0.14rem 0.62rem;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.period-table-wrap :deep(.status-pending) {
+  color: #946200;
+  background: #fff7e0;
+  border: 1px solid #f1d8a3;
+}
+
+.period-table-wrap :deep(.status-complete) {
+  color: #2f6b3a;
+  background: #e8f6eb;
+  border: 1px solid #b9dfc2;
 }
 </style>

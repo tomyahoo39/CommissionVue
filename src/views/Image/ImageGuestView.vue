@@ -78,7 +78,6 @@ onMounted(() => {
 
 <template>
   <div class="container py-4 image-guest-text">
-
     <div class="text-end border-top pt-3">
       <button class="btn-custom-action commission-btn rounded-pill" @click="goToOrder">
         前往填寫委託單 ➔
@@ -89,6 +88,7 @@ onMounted(() => {
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="h4 mb-0 fw-bold">委託項目作品分類</h2>
     </div>
+    <div class="zoom-hint mb-4" role="note">點擊縮圖可放大預覽</div>
 
     <!-- 1. 分類頁籤 (Tabs) -->
     <ul class="nav nav-tabs mb-4">
@@ -211,6 +211,24 @@ onMounted(() => {
     border-color: #666;
     color: #fff !important;
     background-color: #666;
+  }
+
+  .zoom-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid #c7b08a;
+    border-radius: 999px;
+    background: #fff8ea;
+    color: #8a6b3d !important;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .zoom-hint::before {
+    content: "※";
+    font-weight: 800;
   }
 
   .preview-overlay {

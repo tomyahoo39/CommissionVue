@@ -41,7 +41,6 @@
     socialId: null,
     socialUrl: '',
     commissionTypeId: null,
-    commissionSetting: ''
   })
 
   const getActiveOptions = async () => {
@@ -65,7 +64,6 @@
         socialId: formState.socialId,
         socialUrl: formState.socialUrl,
         commissionTypeId: formState.commissionTypeId,
-        commissionSetting: formState.commissionSetting,
       }
       await orderService.createNewOrder(payload)
       alert('委託已送出')
@@ -77,7 +75,6 @@
         socialId: null,
         socialUrl: '',
         commissionTypeId: null,
-        commissionSetting: ''
       })
     } catch (error) {
       console.error(error)
@@ -97,7 +94,7 @@
 
 <template>
   <div class="container my-4">
-    <h2 class="h4 mb-4 fw-bold period-title">委託期狀態</h2>
+    <h2 class="h4 mb-4 fw-bold period-title">委託開放狀態</h2>
 
     <!-- 載入中提示 -->
     <div v-if="isLoading" class="text-center py-5 text-muted">
@@ -108,7 +105,7 @@
     <!-- 情況 A：如果今天有對應的委託期開放中 -->
     <div v-else-if="activePeriod" class="period-status-card">
       <span class="period-badge">開放中</span>
-      <p class="mb-2"><strong>委託期：</strong>{{ activePeriod.title }}</p>
+      <p class="mb-2"><strong>委託表單：</strong>{{ activePeriod.title }}</p>
       <p class="mb-2"><strong>開始時間：</strong>{{ activePeriod.openAt }}</p>
       <p class="mb-2"><strong>結束時間：</strong>{{ activePeriod.closeAt }}</p>
       <p class="mb-0"><strong>最大中選人數：</strong>{{ activePeriod.maxWinners }}</p>
@@ -194,16 +191,6 @@
             {{ item.typeName }}
           </option>
         </select>
-      </div>
-
-      <!-- 委託詳細需求說明 -->
-      <div class="mb-4">
-        <label for="commissionSetting" class="form-label">委託細節與需求說明<span class="text-danger">*</span></label>
-        <textarea id="commissionSetting"
-                  v-model="formState.commissionSetting"
-                  class="form-control period-input"
-                  rows="4"
-                  placeholder="請填寫角色設定、風格需求或相關備註..."></textarea>
       </div>
 
       <!-- 送出按鈕 -->

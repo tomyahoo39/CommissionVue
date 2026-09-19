@@ -50,9 +50,9 @@ const handleLogout = () => {
               作品集
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><RouterLink to="/guestImage" class="dropdown-item">委託項目作品</RouterLink></li>
+              <li><RouterLink to="/guestImage" class="dropdown-item" active-class="active">委託項目作品</RouterLink></li>
               <li><hr v-if="isAdminState" /></li>
-              <li><RouterLink to="/image" class="dropdown-item" v-if="isAdminState">圖片設定與上傳</RouterLink></li>
+              <li><RouterLink to="/image" class="dropdown-item" active-class="active" v-if="isAdminState">圖片設定與上傳</RouterLink></li>
             </ul>
           </li>
 
@@ -66,11 +66,11 @@ const handleLogout = () => {
               填單表
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><RouterLink to="/guestPeriod" class="dropdown-item">委託填單表</RouterLink></li>
+              <li><RouterLink to="/guestPeriod" class="dropdown-item" active-class="active">委託填單表</RouterLink></li>
               <li><hr v-if="isAdminState" /></li>
-              <li><RouterLink to="/period" class="dropdown-item" v-if="isAdminState">委託期設定</RouterLink></li>
-              <li><RouterLink to="/type" class="dropdown-item" v-if="isAdminState">委託項目設定</RouterLink></li>
-              <li><RouterLink to="/social" class="dropdown-item" v-if="isAdminState">社群平台設定</RouterLink></li>
+              <li><RouterLink to="/period" class="dropdown-item" active-class="active" v-if="isAdminState">委託期設定</RouterLink></li>
+              <li><RouterLink to="/type" class="dropdown-item" active-class="active" v-if="isAdminState">委託項目設定</RouterLink></li>
+              <li><RouterLink to="/social" class="dropdown-item" active-class="active" v-if="isAdminState">社群平台設定</RouterLink></li>
             </ul>
           </li>
 
@@ -84,9 +84,9 @@ const handleLogout = () => {
               排單表
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><RouterLink to="/guestOrder" class="dropdown-item">目前排單行程</RouterLink></li>
+              <li><RouterLink to="/guestOrder" class="dropdown-item" active-class="active">目前排單行程</RouterLink></li>
               <li><hr v-if="isAdminState" /></li>
-              <li><RouterLink to="/order" class="dropdown-item" v-if="isAdminState">後台排單設定</RouterLink></li>
+              <li><RouterLink to="/order" class="dropdown-item" active-class="active" v-if="isAdminState">後台排單設定</RouterLink></li>
             </ul>
           </li>
 
@@ -266,6 +266,12 @@ const handleLogout = () => {
 }
 
 .dropdown-item:hover {
+  color: #947659 !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: transparent !important;
   color: #947659 !important;
 }
 
