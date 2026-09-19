@@ -107,24 +107,24 @@ const reindexSortOrder = () => {
 </script>
 
 <template>
-  <div class="container py-4">
+  <div class="container py-4 image-admin-text">
     <!-- 標題與按鈕區塊 -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="h4 mb-0 fw-bold">作品圖片管理</h2>
+      <h2 class="h4 mb-0 fw-bold admin-title">作品圖片管理</h2>
       <div>
         <!-- ⭕ 一鍵儲存整個分類的變更 -->
-        <button class="btn btn-success me-2" :disabled="isSaving || images.length === 0" @click="handleBatchSave">
+        <button class="btn admin-btn me-2" :disabled="isSaving || images.length === 0" @click="handleBatchSave">
           <span v-if="isSaving" class="spinner-border spinner-border-sm me-1"></span>
           💾 儲存所有變更
         </button>
-        <button class="btn btn-primary" @click="isModalOpen = true">
+        <button class="btn admin-btn" @click="isModalOpen = true">
           + 新增圖片
         </button>
       </div>
     </div>
 
     <!-- 1. 分類頁籤 (Tabs) -->
-    <ul class="nav nav-tabs mb-4">
+    <ul class="nav nav-tabs mb-4 admin-tabs">
       <li v-for="typeItem in types" :key="typeItem.id" class="nav-item">
         <button class="nav-link"
                 :class="{ active: selectedTypeId === typeItem.id }"
@@ -142,7 +142,7 @@ const reindexSortOrder = () => {
 
     <!-- 2. 圖片內容展示區塊 -->
     <div v-else>
-      <div v-if="images.length === 0" class="text-center py-5 border rounded bg-light text-muted">
+      <div v-if="images.length === 0" class="text-center py-5 border rounded bg-light text-muted admin-empty-card">
         該分類目前尚無圖片，請點擊右上角「新增圖片」。
       </div>
 
@@ -150,7 +150,7 @@ const reindexSortOrder = () => {
         <div v-for="(img, index) in images"
              :key="img.id"
              class="col-12 col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm" :class="{ 'opacity-50 bg-light': !img.isVisible }">
+          <div class="card h-100 admin-image-card" :class="{ 'opacity-50 bg-light': !img.isVisible }">
 
             <!-- 圖片縮圖 -->
             <div class="ratio ratio-4x3 bg-secondary card-img-top position-relative overflow-hidden cursor-pointer"
@@ -184,14 +184,6 @@ const reindexSortOrder = () => {
               <div class="pt-2 border-top">
                 <label class="form-label small text-muted mb-1">顯示排序</label>
                 <div class="input-group input-group-sm">
-                  <!-- 微調 ▲/▼ 按鈕 -->
-                  <button type="button" class="btn btn-outline-secondary" :disabled="index === 0" @click="moveImage(index, -1)">
-                    ▲
-                  </button>
-                  <button type="button" class="btn btn-outline-secondary" :disabled="index === images.length - 1" @click="moveImage(index, 1)">
-                    ▼
-                  </button>
-
                   <!-- 數字直接輸入框 (輸入完按 Enter 或切換焦點即自動重新重排) -->
                   <input v-model.number="img.sortOrder"
                          type="number"
@@ -229,6 +221,53 @@ const reindexSortOrder = () => {
 </template>
 
 <style scoped>
+.image-admin-text {
+  color: #666;
+}
+
+.admin-title {
+  color: #3d3c3b;
+  letter-spacing: 0.02em;
+}
+
+.admin-btn {
+  border: 1px solid #666;
+  border-radius: 999px;
+  color: #666;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.admin-btn:hover {
+  border-color: #666;
+  color: #fff;
+  background-color: #666;
+}
+
+.admin-tabs :deep(.nav-link) {
+  color: #666;
+  border-radius: 8px 8px 0 0;
+}
+
+.admin-tabs :deep(.nav-link.active) {
+  color: #3d3c3b;
+  border-color: #d8cec2 #d8cec2 #fff;
+  font-weight: 600;
+}
+
+.admin-empty-card {
+  border: 1px dashed #d6c8b9 !important;
+  border-radius: 16px !important;
+  background: #faf7f2 !important;
+}
+
+.admin-image-card {
+  border: 1px solid #e6ddd3;
+  border-radius: 14px;
+  box-shadow: none;
+  overflow: hidden;
+}
+
 .preview-overlay {
   z-index: 2000;
 }

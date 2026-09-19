@@ -13,21 +13,30 @@
       label: '是否啟用', key: 'isActive', options: [
         { text: '啟用', value: true },
         { text: '停用', value: false },
-      ]
+      ],
+      valueClassMap: {
+        true: 'status-pill status-enabled',
+        false: 'status-pill status-disabled'
+      }
     },
     {
       label: '首頁縮圖是否展示', key: 'isHomeVisible', options: [
         { text: '啟用', value: true },
         { text: '停用', value: false },
-      ] },
+      ],
+      valueClassMap: {
+        true: 'status-pill status-enabled',
+        false: 'status-pill status-disabled'
+      }
+    },
     {
       label: '首頁縮圖展示順序', key: 'homeSortOrder', options: [
         { text: '停用', value: 0 }
       ]
     },
     { label: '底價', key: 'basePrice' },
-    { label: '簡短介紹', key: 'shortDescription' },
-    { label: '完整介紹', key: 'fullDescription' },
+    { label: '首頁簡短介紹', key: 'shortDescription' },
+    { label: '作品集完整介紹', key: 'fullDescription' },
   ]
   const isLoading = ref(false)
 
@@ -117,10 +126,10 @@
 </script>
 
 <template>
-  <div class="qa-setting-page">
+  <div class="qa-setting-page container py-4 commission-type-page">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="h4 mb-0 fw-bold">委託項目設定頁面</h2>
-      <button class="btn btn-primary btn-sm" @click="openAddModal">新增委託項目</button>
+      <h2 class="h4 mb-0 fw-bold period-title">委託項目設定頁面</h2>
+      <button class="btn period-btn" @click="openAddModal">新增委託項目</button>
     </div>
 
     <!-- 載入中提示 -->
@@ -147,4 +156,66 @@
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.period-title {
+  color: #3d3c3b;
+  letter-spacing: 0.02em;
+}
+
+.period-btn {
+  border: 1px solid #666;
+  border-radius: 999px;
+  color: #666;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.period-btn:hover {
+  border-color: #666;
+  color: #fff;
+  background: #666;
+}
+
+.commission-type-page :deep(.spinner-border) {
+  color: #947659;
+}
+
+.commission-type-page :deep(.card) {
+  border: 1px solid #e6ddd3 !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, #fffdf9 0%, #f7f4ee 100%);
+  box-shadow: 0 6px 16px rgba(61, 60, 59, 0.08) !important;
+  overflow: hidden;
+}
+
+.commission-type-page :deep(.card .table) {
+  margin-bottom: 0;
+}
+
+.commission-type-page :deep(.card th.bg-light) {
+  background: #f2f2f2 !important;
+  color: #3d3c3b !important;
+}
+
+.commission-type-page :deep(.card td) {
+  color: #666 !important;
+}
+
+.commission-type-page :deep(.card-footer) {
+  border-top: 1px solid #e6ddd3;
+  background: #fff;
+}
+
+.commission-type-page :deep(.btn-outline-primary) {
+  border: 1px solid #666;
+  border-radius: 999px;
+  color: #666;
+  background: #fff;
+}
+
+.commission-type-page :deep(.btn-outline-primary:hover) {
+  border-color: #666;
+  color: #fff;
+  background: #666;
+}
+</style>
