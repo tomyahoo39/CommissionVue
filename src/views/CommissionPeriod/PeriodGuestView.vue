@@ -130,9 +130,24 @@
 
   <div class="container py-4 period-form-wrap" v-if="activePeriod">
     <h2 class="h4 mb-4 fw-bold period-title text-center">填寫委託申請表單</h2>
-    <div class="period-email-note mb-3">提醒：同期委託表單不可使用重複 Email 送出訂單。</div>
+    <div class="period-email-note mb-3">提醒：同個Email不可重複填寫當期委託表單。</div>
 
     <form @submit.prevent="handleSubmit" class="card p-4 shadow-sm period-form-card" v-if="activePeriod">
+
+      <!-- 委託項目類別 -->
+      <div class="mb-3">
+        <label for="commissionTypeId" class="form-label">委託項目 <span class="text-danger">*</span></label>
+        <select id="commissionTypeId"
+                v-model.number="formState.commissionTypeId"
+                class="form-select period-input"
+                required>
+          <option :value="null" disabled>請選擇委託項目</option>
+          <option v-for="item in typeOptions" :key="item.id" :value="item.id">
+            {{ item.typeName }}
+          </option>
+        </select>
+      </div>
+
       <!-- 標題 -->
       <div class="mb-3">
         <label for="title" class="form-label">委託標題 <span class="text-danger">*</span></label>
@@ -140,7 +155,7 @@
                v-model="formState.title"
                type="text"
                class="form-control period-input"
-               placeholder="例如：雙人頭像委託"
+               placeholder="例如：單/雙人半身委託"
                required />
       </div>
 
@@ -171,8 +186,7 @@
         <label for="socialId" class="form-label">聯絡社群平台 </label>
         <select id="socialId"
                 v-model.number="formState.socialId"
-                class="form-select period-input"
-                >
+                class="form-select period-input">
           <option :value="null" disabled>請選擇社群平台</option>
           <option v-for="item in socialOptions" :key="item.id" :value="item.id">
             {{ item.socialName }}
@@ -187,23 +201,9 @@
                v-model="formState.socialUrl"
                type="text"
                class="form-control period-input"
-               placeholder="https://twitter.com/your_id"
-               />
+               placeholder="https://facebook.com/your_id" />
       </div>
-
-      <!-- 委託項目類別 -->
-      <div class="mb-3">
-        <label for="commissionTypeId" class="form-label">委託項目 <span class="text-danger">*</span></label>
-        <select id="commissionTypeId"
-                v-model.number="formState.commissionTypeId"
-                class="form-select period-input"
-                required>
-          <option :value="null" disabled>請選擇委託項目</option>
-          <option v-for="item in typeOptions" :key="item.id" :value="item.id">
-            {{ item.typeName }}
-          </option>
-        </select>
-      </div>
+ 
 
       <!-- 送出按鈕 -->
       <button type="submit" class="btn w-100 period-submit-btn" :disabled="isSubmit">
