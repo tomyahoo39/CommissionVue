@@ -23,6 +23,7 @@ const handleLogout = async () => {
     <div class="container">
       <!-- 品牌/系統名稱 -->
       <RouterLink to="/" class="navbar-brand">
+        <img src="@/assets/001.png" alt="TENPURA_FISH" class="navbar-brand-image" />
         TENPURA_FISH
       </RouterLink>
 
@@ -132,6 +133,11 @@ const handleLogout = async () => {
       </div>
     </div>
   </nav>
+  <div>
+    <img src="@/assets/002.png"
+         alt="Logo"
+         style="width: 100%; max-height: 350px; object-fit: cover; display: block;" />
+  </div>
 </template>
 
 <style scoped>
@@ -171,12 +177,21 @@ const handleLogout = async () => {
 
 /* 品牌名稱 */
 .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 1.55rem;
   font-weight: 600;
   color: var(--text-dark);
   text-decoration: none;
   letter-spacing: -0.3px;
   transition: color 0.2s ease;
+}
+
+.navbar-brand-image {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .navbar-brand:hover {
