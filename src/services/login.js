@@ -1,56 +1,63 @@
 import api from '@/services/axios'
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'
 import { ref } from 'vue'
 
 export const isAdminState = ref(false)
 
+function safeDecode(token) {
+  try {
+    return jwtDecode(token)
+  } catch {
+    return null
+  }
+}
+
+function isTokenExpired(decoded) {
+  if (!decoded?.exp) return true
+  return decoded.exp * 1000 <= Date.now()
+}
+
+function getRole(decoded) {
+  return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+    || decoded?.role
+    || null
+}
+
 const loginService = {
   login(credentials) {
-    return api.post('/Users/Login', credentials);
+    return api.post('/Users/Login', credentials)
   },
   setToken(token) {
     localStorage.setItem('token', token)
     this.updateAdminState()
   },
   getToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token')
   },
   removeToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('token')
     isAdminState.value = false
   },
   isAuthenticated() {
-    return !!localStorage.getItem('token')
+    const token = this.getToken()
+    const decoded = token ? safeDecode(token) : null
+    if (!decoded || isTokenExpired(decoded)) {
+      this.removeToken()
+      return false
+    }
+    return true
   },
-
-  isAdmin() {
-    return isAdminState.value
-  },
-
   updateAdminState() {
-    const token = localStorage.getItem('token')
-
-    if (!token) {
-      isAdminState.value = false
+    const token = this.getToken()
+    const decoded = token ? safeDecode(token) : null
+    if (!decoded || isTokenExpired(decoded)) {
+      this.removeToken()
       return
     }
-
-    try {
-      const decoded = jwtDecode(token)
-
-      // 嘗試多種方式取得 role
-      let role = null
-      if (decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
-        role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
-      } else if (decoded.role) {
-        role = decoded.role
-      }
-
-      isAdminState.value = role === 'Admin'
-
-    } catch (error) {
-      isAdminState.value = false
-    }
+    isAdminState.value = getRole(decoded) === 'Admin'
+  },
+  isAdmin() {
+    return this.isAuthenticated() && isAdminState.value
   }
 }
 

@@ -87,7 +87,7 @@
       await Swal.fire({
         icon: 'error',
         title: '送出失敗',
-        html: '請檢查是否完整填寫。<br>同個Email不可重複填寫當期委託表單。',
+        html: '1.同個Email不可重複填寫當期委託表單。<br>2.一分鐘內不可重複送出訂單',
         confirmButtonText: '確認'
       })
     } finally {

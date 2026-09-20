@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import imageService from '@/services/image'
 import typeService from '@/services/CommissionType'
+import { getImageUrl } from '@/utils/safeImageUrl'
 
 
 import { isAdminState } from '@/services/login'
@@ -12,12 +13,6 @@ const isLoading = ref(false)
 
 const indexData = ref([])
 const types = ref([])
-
-const BASE_URL = 'https://localhost:7015'
-const getImageUrl = (path) => {
-  if(!path) return ''
-  return path.startsWith('https') ? path : `${BASE_URL}${path}`
-}
 
 const getTypeInfo = (typeId) => {
   return types.value.find(t => t.id === typeId) || {}

@@ -3,6 +3,7 @@ import { ref, computed, onMounted,watch } from 'vue'
 import imageService from '@/services/image'
 import typeService from '@/services/CommissionType'
 import { useRoute, useRouter } from 'vue-router'
+import { getImageUrl } from '@/utils/safeImageUrl'
 
 const isLoading = ref(false)
 const types = ref([])
@@ -49,12 +50,6 @@ const getImagesByTypeId = async (typeId) => {
 const handleTabClick = (typeId) => {
   selectedTypeId.value = typeId
   getImagesByTypeId(typeId)
-}
-
-const BASE_URL = 'https://localhost:7015'
-const getImageUrl = (path) => {
-  if (!path) return
-  return path.startsWith('https') ? path : `${BASE_URL}${path}`
 }
 
 const route = useRoute()

@@ -2,13 +2,19 @@
 import { RouterLink } from 'vue-router'
 import loginService, { isAdminState } from '@/services/login'
 import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 
 const router = useRouter()
 
-const handleLogout = () => {
+const handleLogout = async () => {
   loginService.removeToken()
   router.push('/')
-  alert('已登出系統，將導回首頁')
+  await Swal.fire({
+    icon: 'success',
+    title: '已登出',
+    text: '已登出系統，將導回首頁',
+    confirmButtonText: '確認'
+  })
 }
 </script>
 

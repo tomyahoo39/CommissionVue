@@ -95,7 +95,7 @@
       await Swal.fire({
         icon: 'error',
         title: '上傳失敗',
-        text: '請稍後再試',
+        html: '上傳圖片限定 Jpg、Png、Webp<br>圖片大小不可超過 10MB',
         confirmButtonText: '確認'
       })
     } finally {

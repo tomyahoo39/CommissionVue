@@ -4,6 +4,7 @@
   import UploadImage from '@/components/UploadImageView.vue'
   import imageService from '@/services/image'
   import typeService from '@/services/CommissionType'
+  import { getImageUrl } from '@/utils/safeImageUrl'
 
   const isLoading = ref(false)
   const isModalOpen = ref(false)
@@ -51,12 +52,6 @@
     if (selectedTypeId.value) {
       getImagesByTypeId(selectedTypeId.value)
     }
-  }
-
-  const BASE_URL = 'https://localhost:7015'
-  const getImageUrl = (path) => {
-    if (!path) return ''
-    return path.startsWith('https') ? path :`${BASE_URL}${path}`
   }
 
   const moveImage = (index,direction) => {

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import Swal from 'sweetalert2'
 import questionService from '@/services/qaQuestion'
 import qaService from '@/services/qaSetting'
 
@@ -41,7 +42,12 @@ const handleSubmitQuestion = async () => {
     }, 5000)
   } catch (error) {
     console.log(error)
-    alert('送出失敗，請稍後再試!')
+    await Swal.fire({
+      icon: 'error',
+      title: '送出失敗',
+      html: '一分鐘內不可重複送出詢問',
+      confirmButtonText: '確認'
+    })
   } finally {
     isSubmitting.value = false
   }
