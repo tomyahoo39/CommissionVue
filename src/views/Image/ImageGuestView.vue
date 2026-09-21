@@ -3,6 +3,7 @@ import { ref, computed, onMounted,watch } from 'vue'
 import imageService from '@/services/image'
 import typeService from '@/services/CommissionType'
 import { useRoute, useRouter } from 'vue-router'
+import { getImageUrl } from '@/utils/safeImageUrl'
 
 const isLoading = ref(false)
 const types = ref([])
@@ -51,12 +52,6 @@ const handleTabClick = (typeId) => {
   getImagesByTypeId(typeId)
 }
 
-const BASE_URL = 'https://localhost:7015'
-const getImageUrl = (path) => {
-  if (!path) return
-  return path.startsWith('https') ? path : `${BASE_URL}${path}`
-}
-
 const route = useRoute()
 
 const currentType = computed(() => {
@@ -77,10 +72,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container py-4">
-
+  <div class="container py-4 image-guest-text">
     <div class="text-end border-top pt-3">
-      <button class="btn-custom-action" @click="goToOrder">
+      <button class="btn-custom-action commission-btn rounded-pill" @click="goToOrder">
         前往填寫委託單 ➔
       </button>
     </div>
@@ -89,6 +83,7 @@ onMounted(() => {
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="h4 mb-0 fw-bold">委託項目作品分類</h2>
     </div>
+    <div class="zoom-hint mb-4" role="note">點擊縮圖可放大預覽</div>
 
     <!-- 1. 分類頁籤 (Tabs) -->
     <ul class="nav nav-tabs mb-4">
@@ -102,12 +97,9 @@ onMounted(() => {
     </ul>
 
     <div v-if="currentType.fullDescription || currentType.basePrice" class="card p-4 mb-4 bg-light border-0 shadow-sm">
-      <h5 class="fw-bold mb-2 text-primary">{{ currentType.typeName }} 委託說明</h5>
+      <h5 class="fw-bold mb-2 text-primary type-heading">{{ currentType.typeName }} </h5>
 
-      <!-- 起價資訊 -->
-      <p v-if="currentType.basePrice" class="text-danger fw-bold mb-2">
-        起價：NT$ {{ currentType.basePrice }} 起
-      </p>
+
 
       <!-- 完整介紹：加上 whitespace-pre-line 確保 \n 換行與空格正常顯示 -->
       <div v-if="currentType.fullDescription" class="text-secondary whitespace-pre-line fs-6 lh-base">
@@ -152,13 +144,13 @@ onMounted(() => {
     </div>
 
     <div v-if="previewImageUrl"
-         class="modal fade show d-block bg-dark bg-opacity-75"
+         class="modal fade show d-block bg-dark bg-opacity-75 preview-overlay"
          tabindex="-1"
          @click.self="previewImageUrl = null">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content bg-transparent border-0 text-end">
-          <button type="button" class="btn-close btn-close-white mb-2 ms-auto" @click="previewImageUrl = null"></button>
-          <img :src="previewImageUrl" class="img-fluid rounded shadow" style="max-height: 80vh; object-fit: contain;" />
+      <div class="modal-dialog modal-dialog-centered preview-modal-dialog">
+        <div class="modal-content bg-transparent border-0 text-end preview-modal-content" @click="previewImageUrl = null">
+          <button type="button" class="btn-close btn-close-white mb-2 ms-auto" @click.stop="previewImageUrl = null"></button>
+          <img :src="previewImageUrl" class="img-fluid rounded shadow preview-full-image" @click.stop />
         </div>
       </div>
     </div>
@@ -169,5 +161,93 @@ onMounted(() => {
 
   .whitespace-pre-line {
     white-space: pre-line;
+  }
+
+  .image-guest-text {
+    color: #666;
+  }
+
+  .image-guest-text :is(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    button,
+    .nav-link,
+    .card-title,
+    .btn-custom-action,
+    .text-muted,
+    .text-secondary,
+    .text-danger,
+    .badge
+  ) {
+    font-size: 1.12rem !important;
+    color: #666 !important;
+    line-height: 1.7 !important;
+  }
+
+  .image-guest-text .type-heading {
+    font-size: 1.45rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .commission-btn {
+    border: 1px solid #666;
+    color: #666;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    padding: 0.35rem 0.9rem;
+  }
+
+  .commission-btn:hover {
+    border-color: #666;
+    color: #fff !important;
+    background-color: #666;
+  }
+
+  .zoom-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid #c7b08a;
+    border-radius: 999px;
+    background: #fff8ea;
+    color: #8a6b3d !important;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .zoom-hint::before {
+    content: "※";
+    font-weight: 800;
+  }
+
+  .preview-overlay {
+    z-index: 2000;
+  }
+
+  .preview-modal-dialog {
+    max-width: 96vw;
+    margin: 0.25rem auto;
+  }
+
+  .preview-modal-content {
+    width: 100%;
+    min-height: 94vh;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+  }
+
+  .preview-full-image {
+    width: auto;
+    max-width: 96vw;
+    max-height: 94vh;
+    object-fit: contain;
+    cursor: default;
   }
 </style>

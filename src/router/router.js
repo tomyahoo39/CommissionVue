@@ -10,12 +10,6 @@ const router = createRouter({
       component: () => import('../views/Index/IndexView.vue'),
     },
     {
-      path: '/homeAdmin',
-      name: 'homeAdmin',
-      component: () => import('../views/Index/IndexAdminView.vue'),
-      meta: { requiresLogin: true }
-    },
-    {
       path: '/guestImage',
       name: 'guestImage',
       component: () => import('../views/Image/ImageGuestView.vue')
@@ -24,7 +18,7 @@ const router = createRouter({
       path: '/image',
       name: 'image',
       component: () => import('../views/Image/ImageAdminView.vue'),
-      meta: { requiresLogin: true }
+      meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
       path: '/guestPeriod',
@@ -35,19 +29,19 @@ const router = createRouter({
       path: '/period',
       name: 'period',
       component: () => import('../views/CommissionPeriod/PeriodAdminView.vue'),
-      meta: { requiresLogin: true }
+      meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
       path: '/type',
       name: 'type',
       component: () => import('../views/CommissionPeriod/CommissionTypeView.vue'),
-      meta: { requiresLogin: true }
+      meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
       path: '/social',
       name: 'social',
       component: () => import('../views/CommissionPeriod/SocialPlatformView.vue'),
-      meta: { requiresLogin: true }
+      meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
       path: '/guestOrder',
@@ -58,7 +52,7 @@ const router = createRouter({
       path: '/order',
       name: 'order',
       component: () => import('../views/CommissionOrder/AdminOrdersView.vue'),
-      meta: { requiresLogin: true }
+      meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
       path: '/guestQa',
@@ -69,13 +63,13 @@ const router = createRouter({
       path: '/qa',
       name: 'qa',
       component: () => import('../views/QaSetting/QaSettingView.vue'),
-      meta: { requiresLogin: true }
+      meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
       path: '/showguestQa',
       name: 'showguestQa',
       component: () => import('../views/QaSetting/GuestQuestionView.vue'),
-      meta: { requiresLogin: true }
+      meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
       path: '/login',
@@ -91,17 +85,25 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const requiresLogin = to.meta.requiresLogin;
-  const isAuthenticated = loginService.isAuthenticated();
+  const requiresLogin = !!to.meta.requiresLogin
+  const requiresAdmin = !!to.meta.requiresAdmin
+  const isAuthenticated = loginService.isAuthenticated()
+  loginService.updateAdminState()
+  const isAdmin = loginService.isAdmin()
 
   if (requiresLogin && !isAuthenticated) {
-    next('/login')
-  } else if (to.path === '/login' && isAuthenticated) {
-    next('/')
-    alert('你已登入')
-  } else {
-    next()
+    return next('/login')
   }
+
+  if (requiresAdmin && !isAdmin) {
+    return next('/') // 或 next('/403')
+  }
+
+  if (to.path === '/login' && isAuthenticated) {
+    return next('/')
+  }
+
+  next()
 })
 
 export default router

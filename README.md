@@ -69,12 +69,13 @@ npm install
 ```
 
 3. **設定環境變數 (Environment Variables)**
-在專案根目錄新增 `.env.local` 檔案，並設定後端 API 網址：
-
+本專案已於 `.env.development` 預設配置 Vite 代理路徑：
 ```env
-VITE_API_URL=https://localhost:7015
+VITE_API_URL=/api
 
 ```
+
+
 
 4. **啟動開發伺服器 (Run Development Server)**
 

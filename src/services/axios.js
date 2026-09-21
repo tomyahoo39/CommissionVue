@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '@/router/router'
+import loginService from '@/services/login'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -7,13 +8,13 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token')
-  if (token) {
+  if (loginService.isAuthenticated()) {
+    const token = loginService.getToken()
     config.headers.Authorization = `Bearer ${token}`
+  } else {
+    delete config.headers.Authorization
   }
   return config
-}, (error) => {
-  return Promise.reject(error)
 })
 
 api.interceptors.response.use(
@@ -21,9 +22,11 @@ api.interceptors.response.use(
   return response
 },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem('token')
-      router.push('/login')
+    if (error.response?.status === 401) {
+      loginService.removeToken()
+      if (router.currentRoute.value.path !== '/login') {
+        router.push('/login')
+      }
     }
     return Promise.reject(error)
   }

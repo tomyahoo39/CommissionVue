@@ -28,15 +28,25 @@ const handleDelete = (item) => {
   emit('delete', item)
 }
 
-  const renderValue = (col, val) => {
-    if (val === null || val === undefined || val === '') return '無資料';
-    const opt = col.options
-    if (opt && Array.isArray(opt)) {
-      const target = opt.find(o => o.value === val)
-      return target ? target.text : val
-    }
-    return val;
-  };
+const getCellClass = (col, val) => {
+  const map = col.valueClassMap
+  if (!map || typeof map !== 'object') return ''
+  return map[val] || ''
+}
+
+const isEmptyValue = (val) => {
+  return val === null || val === undefined || val === ''
+}
+
+const renderValue = (col, val) => {
+  if (isEmptyValue(val)) return '無資料'
+  const opt = col.options
+  if (opt && Array.isArray(opt)) {
+    const target = opt.find(o => o.value === val)
+    return target ? target.text : val
+  }
+  return val
+}
 
 </script>
 
@@ -72,7 +82,9 @@ const handleDelete = (item) => {
         <tr v-else v-for="(item, index) in items" :key="item.id || index" style="cursor: pointer">
           <!-- 動態渲染欄位值 -->
           <td v-for="col in columns" :key="col.key">
-            {{ renderValue(col,item[col.key]) }}
+            <span :class="[getCellClass(col, item[col.key]), isEmptyValue(item[col.key]) ? 'value-empty' : '']">
+              {{ renderValue(col,item[col.key]) }}
+            </span>
           </td>
 
           <!-- 按鈕區塊 -->
@@ -105,5 +117,16 @@ const handleDelete = (item) => {
 <style scoped>
 .table-hover tbody tr:hover {
   background-color: rgba(13, 110, 253, 0.04);
+}
+
+.value-empty {
+  display: inline-block;
+  padding: 0.08rem 0.52rem;
+  border-radius: 999px;
+  border: 1px solid #ddd3c7;
+  background: #faf7f2;
+  color: #8a8177;
+  font-size: 0.86rem;
+  line-height: 1.35;
 }
 </style>
