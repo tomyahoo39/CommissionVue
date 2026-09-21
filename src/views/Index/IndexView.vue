@@ -55,7 +55,7 @@ onMounted(() => {
       <h3 class="process-title text-center mb-4">/ 注意事項 /</h3>
 
       <ul class="notice-list mx-auto">
-        <li>委託成立時間認定<strong> 委託人已成年 或 未成年但經監護人同意此委託交易之行為</strong></li>
+        <li>委託成立時即認定<strong> 委託人已成年 或 未成年但經監護人同意此委託交易之行為</strong></li>
         <li><strong>未成年不可委託R18圖</strong></li>
         <li>會確實告知完成時間，若有延誤必提前通知</li>
         <li class="text-warning-emphasis fw-bold">委託圖非買斷，不可二次修改、印製商品或有其他營利行為</li>
