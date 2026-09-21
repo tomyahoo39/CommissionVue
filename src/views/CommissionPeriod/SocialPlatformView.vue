@@ -1,7 +1,7 @@
 <script setup>
   import { ref , onMounted } from 'vue'
   import Swal from 'sweetalert2'
-  import socialService from '@/services/socialPlatform'
+  import socialService from '@/services/SocialPlatform.js'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
 
