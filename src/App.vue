@@ -16,53 +16,59 @@ onMounted(() => {
 
     <!-- 主要內容區塊 -->
     <main class="container my-4 my-md-5">
-      <div class="main-card shadow-sm p-4 p-md-5 bg-white rounded-4">
+      <div class="main-card">
         <RouterView />
       </div>
     </main>
+
+    <!-- 頁尾 -->
+    <footer class="app-footer">
+      <div class="footer-grid">
+        <h3 class="footer-title">創作者 / 炸蝦魚</h3>
+        <h4 class="footer-title">聯絡與社群</h4>
+
+        <p class="footer-desc">插畫 / 驚喜包 / 非商業委託</p>
+        <div class="footer-socials">
+          <a href="https://www.plurk.com/m/hahafish23">Plurk</a>
+          <a href="https://www.facebook.com/tenpurafishdrawing/">Facebook</a>
+          <a href="https://www.threads.com/@hahafish23">Threads</a>
+          <a href="https://www.instagram.com/hahafish23/">Instagram</a>
+          <span>電子信箱：hahafish23@gmail.com</span>
+        </div>
+      </div>
+
+      <!-- 版權聲明 -->
+      <div class="footer-copyright">
+        <p>&copy; 2026 TempuraFish. All rights reserved.</p>
+      </div>
+    </footer>
   </div>
-
-  <footer>
-    <div>
-      <!-- 創作者名稱與簡介 -->
-      <h3>創作者 / 畫師名稱</h3>
-      <p>日系插畫 / 角色設計 / 商業委託</p>
-    </div>
-
-    <div>
-      <!-- 導覽與委託狀態 -->
-      <h4>選單</h4>
-      <ul>
-        <li><a href="#about">關於我</a></li>
-        <li><a href="#services">委託流程與計價</a></li>
-        <li><a href="#terms">委託條款</a></li>
-        <li><span>● 委託開放中</span></li>
-      </ul>
-    </div>
-
-    <div>
-      <!-- 社群與聯絡方式 -->
-      <h4>聯絡與社群</h4>
-      <ul>
-        <li><a href="#">Twitter / X</a></li>
-        <li><a href="#">Pixiv</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="mailto:your_email@example.com">Email 聯絡</a></li>
-      </ul>
-    </div>
-
-    <!-- 版權宣告 -->
-    <div>
-      <p>&copy; 2026 Your Name. All rights reserved.</p>
-    </div>
-  </footer>
 </template>
 
 <style>
-/* 全域基礎背景與字型 */
+/* 顏色變數 */
+:root {
+  --cream-white: #f2f2f2;
+  --coral-pink: #f4a8a8;
+  --coral-dark: #e6969a;
+  --text-dark: #3d3c3b;
+  --text-light: #666666;
+  --border-light: #ede9e4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 全域基礎樣式 */
 body {
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: var(--cream-white);
+  color: var(--text-dark);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
   min-height: 100vh;
 }
 
@@ -72,67 +78,105 @@ body {
   min-height: 100vh;
 }
 
+/* 主卡片樣式 */
 .main-card {
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: white;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-/* 1. 全域重置與基礎樣式 */
-footer {
-  background-color: #222226; /* 深灰底色 */
-  color: #cccccc; /* 淺灰字體 */
-  padding: 30px 20px 15px;
-  font-family: sans-serif;
+/* 頁尾樣式 */
+.app-footer {
+  background-color: #f2f2f2;
+  color: var(--text-dark);
+  padding: 1.2rem 1.5rem 0.9rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(61, 60, 59, 0.18);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* 2. 橫向三欄佈局 */
-footer > div:not(:last-child) {
-  display: inline-block;
-  vertical-align: top;
-  width: 30%; /* 讓三欄並排 */
-  box-sizing: border-box;
+.footer-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 0.5rem;
+  column-gap: 2rem;
+  align-items: center;
 }
 
-/* 3. 清除預設項目符號（黑點）與超連結底線 */
-footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 0;
+.footer-title {
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.2px;
 }
 
-footer li {
-  margin-bottom: 8px;
+.footer-desc {
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin: 0;
 }
 
-footer a {
-  color: #a0a0b0;
+.footer-socials {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  font-size: 1rem;
+}
+
+.app-footer a {
+  color: var(--text-dark);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-footer a:hover {
-  color: #ffffff; /* 滑鼠懸停變白 */
+.footer-icon {
+  display: inline-block;
+  margin-right: 0.35rem;
+  font-size: 0.95em;
+  vertical-align: baseline;
 }
 
-footer h3,
-footer h4 {
-  color: #ffffff;
-  margin: 0 0 10px 0;
+.app-footer a:hover {
+  color: #947659;
 }
 
-/* 4. 最下方的版權列 */
-footer > div:last-child {
-  border-top: 1px solid #33333b;
-  margin-top: 20px;
-  padding-top: 15px;
+/* 頁尾最後一欄（版權） */
+.footer-copyright {
+  max-width: 1200px;
+  margin: 0.8rem auto 0;
+  width: 100%;
+  border-top: 1px solid rgba(61, 60, 59, 0.18);
+  padding-top: 0.6rem;
   text-align: center;
-  font-size: 0.85rem;
-  color: #777788;
+  font-size: 0.9rem;
+  color: var(--text-dark);
 }
 
-/* 5. 手機版自動變成單欄（響應式） */
-@media (max-width: 600px) {
-  footer > div:not(:last-child) {
-    width: 100%;
-    margin-bottom: 20px;
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .main-card {
+    padding: 1.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    row-gap: 0.4rem;
+    column-gap: 0;
+  }
+
+  .footer-title {
+    font-size: 1rem;
+  }
+
+  .footer-socials {
+    gap: 0.8rem;
+    font-size: 0.95rem;
   }
 }
 </style>

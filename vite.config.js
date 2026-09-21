@@ -19,9 +19,9 @@ export default defineConfig({
     proxy: {
       // 只要前端發送 /api 開頭的請求，Vite 就會自動轉發到 C# 後端
       '/api': {
-        target: 'https://localhost:7015',
+        target: 'https://commissionwebapi.onrender.com',
         changeOrigin: true,
-        secure: false, // 允許 Localhost 開發用的自簽 SSL 憑證
+        secure: true, // 允許 Localhost 開發用的自簽 SSL 憑證
       },
     },
   },
