@@ -1,7 +1,7 @@
 <script setup>
   import { ref, onMounted } from 'vue'
   import Swal from 'sweetalert2'
-  import typeService from '@/services/commissionType'
+  import typeService from '@/services/CommissionType.js'
   import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
   import ShowDetail from '@/components/ShowDetail.vue'
