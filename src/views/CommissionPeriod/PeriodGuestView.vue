@@ -119,12 +119,20 @@
       <p class="mb-2"><strong>委託表單：</strong>{{ activePeriod.title }}</p>
       <p class="mb-2"><strong>開始時間：</strong>{{ activePeriod.openAt }}</p>
       <p class="mb-2"><strong>結束時間：</strong>{{ activePeriod.closeAt }}</p>
-      <p class="mb-0"><strong>最大中選人數：</strong>{{ activePeriod.maxWinners }}</p>
+      <p class="mb-2 fw-bold"><strong>抽選日期：</strong>固定為結束時間隔日中午前</p>
+      <p class="mb-2"><strong>最大中選人數：</strong>{{ activePeriod.maxWinners }}</p>
+      <div class="zoom-hint mb-4" role="note">
+        注意事項：<br>
+        同一人限用一個電子信箱填一單<br>
+        中選名單會在抽選後更新於排單表<br>
+        我會主動私訊中選人討論委託細節<br>
+        請於中選後5日內提供委託資料，不可卡位未來時間委託
+      </div>
     </div>
 
     <!-- 情況 B：如果今天不在任何委託期內（或尚未有開放） -->
     <div v-else class="period-status-empty text-center py-4">
-      <h4 class="mb-0">目前尚未有委託期開放，如有商業委託或加急處理，請透過Q&A頁面的信箱留言，會盡速為您服務</h4>
+      <h4 class="mb-0">目前委託填單表未開放，如有急件或商業委託，請透過Q&A頁面的信箱留言，會盡速為您服務</h4>
     </div>
   </div>
 
@@ -317,6 +325,19 @@
   input:focus::placeholder,
   textarea:focus::placeholder {
     color: transparent;
+  }
+
+  .zoom-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid #c7b08a;
+    border-radius: 8px;
+    background: #fff8ea;
+    color: #8a6b3d !important;
+    font-weight: 700;
+    letter-spacing: 0.01em;
   }
 
 </style>
