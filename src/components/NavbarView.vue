@@ -120,10 +120,6 @@ const handleLogout = async () => {
             </ul>
           </li>
 
-          <li class="nav-item" v-if="!isAdminState">
-            <RouterLink to="/login" class="nav-link nav-link-auth">管理員登入</RouterLink>
-          </li>
-
           <div class="nav-auth" v-if="isAdminState">
             <button class="btn btn-logout" @click="handleLogout">
               登出系統
