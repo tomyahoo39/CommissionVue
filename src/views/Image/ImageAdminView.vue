@@ -54,22 +54,9 @@
     }
   }
 
-  const moveImage = (index,direction) => {
-    const targetIndex = index + direction
-    if (targetIndex < 0 || targetIndex >= images.value.length) return
-
-    const temp = images.value[index]
-    images.value[index] = images.value[targetIndex]
-    images.value[targetIndex] = temp
-
-    reindexSortOrder()
-  }
 
 const reindexSortOrder = () => {
   images.value.sort((a, b) => a.sortOrder - b.sortOrder)
-  images.value.forEach((img, i) => {
-    img.sortOrder + i
-  })
 }
 
   const isSaving = ref(false)
