@@ -2,7 +2,6 @@
   import { ref, onMounted } from 'vue'
   import Swal from 'sweetalert2'
   import typeService from '@/services/CommissionType.js'
-  import DataTable from '@/components/DataTable.vue'
   import FormModal from '@/components/FormModal.vue'
   import ShowDetail from '@/components/ShowDetail.vue'
 
@@ -125,7 +124,7 @@
         isModalOpen.value = false
         getTypes()
       }
-    } catch (error) {
+    } catch {
       await Swal.fire({
         icon: 'error',
         title: '操作失敗',

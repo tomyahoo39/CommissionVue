@@ -1,5 +1,5 @@
 <script setup>
-  import {ref,computed,onMounted } from 'vue'
+  import {ref,onMounted } from 'vue'
   import Swal from 'sweetalert2'
   import UploadImage from '@/components/UploadImageView.vue'
   import imageService from '@/services/image'
@@ -140,7 +140,7 @@ const reindexSortOrder = () => {
       </div>
 
       <div v-else class="row g-3">
-        <div v-for="(img, index) in images"
+        <div v-for="img in images"
              :key="img.id"
              class="col-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100 admin-image-card" :class="{ 'opacity-50 bg-light': !img.isVisible }">
