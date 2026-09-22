@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted,watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import imageService from '@/services/image'
 import typeService from '@/services/CommissionType'
 import { useRoute, useRouter } from 'vue-router'
