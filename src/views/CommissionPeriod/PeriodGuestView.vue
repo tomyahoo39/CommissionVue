@@ -36,7 +36,6 @@
   const socialOptions = ref([])
   const isSubmit = ref(false)
   const formState = reactive({
-    title: '',
     nickname: '',
     email: '',
     socialId: null,
@@ -59,7 +58,6 @@
     isSubmit.value = true
     try {
       const payload = {
-        title: formState.title,
         nickname: formState.nickname,
         email: formState.email,
         socialId: formState.socialId,
@@ -75,7 +73,6 @@
       })
 
       Object.assign(formState, {
-        title: '',
         nickname: '',
         email: '',
         socialId: null,
@@ -156,16 +153,7 @@
         </select>
       </div>
 
-      <!-- 標題 -->
-      <div class="mb-3">
-        <label for="title" class="form-label">委託標題 <span class="text-danger">*</span></label>
-        <input id="title"
-               v-model="formState.title"
-               type="text"
-               class="form-control period-input"
-               placeholder="例如：單/雙人半身委託"
-               required />
-      </div>
+    
 
       <!-- 暱稱 -->
       <div class="mb-3">
