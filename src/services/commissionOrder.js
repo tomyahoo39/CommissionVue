@@ -20,9 +20,10 @@ const orderService = {
   },
   RedrawOrder(draw) {
     return api.post('/CommissionOrders/ReDraw',draw)
+  },
+  getPeriodOrder(periodId) {
+    return api.get(`/CommissionOrders/PeriodOrders/${periodId}`)
   }
-
-
 }
 
 export default orderService

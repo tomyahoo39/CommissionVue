@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import questionService from '@/services/qaQuestion'
+import Swal from 'sweetalert2'
 
 const guestQa = ref([])
 const isLoading = ref(false)
@@ -10,6 +11,7 @@ const questionColumn = [
   { label: '電子信箱', key: 'email' },
   { label: '問題', key: 'question' },
   { label: '建立時間', key: 'createdAt' },
+  { label: '已完成', key:'isFinish'}
 ]
 
 const showGuestQuestion = async () => {
@@ -17,9 +19,35 @@ const showGuestQuestion = async () => {
   try {
     const response = await questionService.guestQa()
     guestQa.value = response.data
-    isLoading.value = false
   } catch (error) {
     console.log(error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const updatingIds = ref(new Set())
+
+const handleToggleFinish = async (item, nextChecked) => {
+  const prevChecked = Boolean(item.isFinish)
+
+  item.isFinish = nextChecked
+  updatingIds.value.add(item.id)
+
+  try {
+    await questionService.qaIsFinish(item.id, { isFinish: nextChecked })
+  } catch (error) {
+    console.log(error)
+
+    item.isFinish = prevChecked
+    await Swal.fire({
+      icon: 'error',
+      title: '更新失敗',
+      text: '無法更新完成狀態，請稍後再試',
+      confirmButtonText: '確認'
+    })
+  } finally {
+    updatingIds.value.delete(item.id)
   }
 }
 
@@ -71,6 +99,15 @@ onMounted(() => {
                   {{ item.question }}
                 </td>
                 <td class="text-nowrap">{{ item.createdAt }}</td>
+                <td class="text-nowrap">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  :checked="Boolean(item.isFinish)"
+                  :disabled="updatingIds.has(item.id)"
+                  @change="handleToggleFinish(item, $event.target.checked)"
+                  />
+                </td>
               </tr>
             </tbody>
           </table>

@@ -30,7 +30,7 @@ onMounted(() => {
         <p class="footer-desc">插畫 / 驚喜包 / 非商業委託</p>
         <div class="footer-socials">
           <a href="https://www.plurk.com/m/hahafish23">Plurk</a>
-          <a href="https://www.facebook.com/tenpurafishdrawing/">Facebook</a>
+          <a href="https://www.facebook.com/fish.tenpura/">Facebook</a>
           <a href="https://www.threads.com/@hahafish23">Threads</a>
           <a href="https://www.instagram.com/hahafish23/">Instagram</a>
           <span>電子信箱：hahafish23@gmail.com</span>

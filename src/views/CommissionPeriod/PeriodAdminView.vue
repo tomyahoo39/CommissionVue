@@ -136,13 +136,36 @@
     }
   }
 
+const handleDelete = async (item) => {
+  const result = await Swal.fire({
+    icon: 'warning',
+    title: '確認刪除',
+    text: `確定要刪除 ${item.id} 的 Q&A 嗎？`,
+    showCancelButton: true,
+    confirmButtonText: '確認刪除',
+    cancelButtonText: '取消'
+  })
+
+  if (result.isConfirmed) {
+    await periodService.deletePeriod(item.id)
+    await Swal.fire({
+      icon: 'success',
+      title: '刪除成功',
+      text: '委託單已刪除',
+      confirmButtonText: '確認'
+    })
+    getAllPeriod()
+  }
+}
+
+
   onMounted(() => {
     getAllPeriod()
   })
 </script>
 
 <template>
-  <div class="qa-setting-page container py-4">
+  <div class="qa-setting-page container py-4 qa-setting-theme">
     <div class="period-admin-note card p-4 mb-4">
       <h3 class="h5 fw-bold mb-2 period-title">抽籤提醒</h3>
       <p class="mb-3 period-note-text">
@@ -179,7 +202,8 @@
       <DataTable :columns="periodColumns"
                  :items="periods"
                  :showEdit="false"
-                 :showDelete="false" />
+                 :showDelete="true"
+                 @delete="handleDelete"/>
     </div>
     <FormModal :title="currentTitle"
                :isOpen="isModalOpen"
@@ -275,5 +299,18 @@
   color: #2f6b3a;
   background: #e8f6eb;
   border: 1px solid #b9dfc2;
+}
+
+.qa-setting-theme :deep(.btn-outline-danger) {
+  border: 1px solid #d86a75;
+  border-radius: 10px;
+  color: #c4525e;
+  background: #fff;
+}
+
+.qa-setting-theme :deep(.btn-outline-danger:hover) {
+  border-color: #c4525e;
+  color: #fff;
+  background: #c4525e;
 }
 </style>
