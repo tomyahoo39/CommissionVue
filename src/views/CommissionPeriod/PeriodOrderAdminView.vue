@@ -58,7 +58,7 @@
 </script>
 
 <template>
-  <div class="container py-4 admin-order-page">
+  <div class="container py-4 admin-order-page ">
     <div class="note-card p-4 mb-4">
       <h3 class="h5 fw-bold mb-2 page-title">委託訂單查詢</h3>
       <p class="mb-3 page-subtitle">委託表單列表請至導覽列 &gt; 填單表 &gt; 委託表單設定查詢</p>
@@ -83,7 +83,7 @@
       目前尚無該委託表單的訂單資料。
     </div>
 
-    <div v-else>
+    <div v-else class = question-table-wrap>
       <DataTable
         :columns ="orderColumn"
         :items ="orderList"
@@ -208,5 +208,18 @@
 
 .admin-order-page :deep(.spinner-border) {
   color: #947659;
+}
+
+.admin-order-page :deep(.table-dark) {
+  --bs-table-bg: #f2f2f2;
+  --bs-table-color: #3d3c3b;
+}
+
+.question-table-wrap {
+  border: 1px solid #e6ddd3; /* 淡米色/卡其色外框 */
+  border-radius: 16px;      /* 圓角 16px */
+  background: linear-gradient(135deg, #fffdf9 0%, #f7f4ee 100%);
+  box-shadow: 0 6px 16px rgba(61, 60, 59, 0.08); /* 底部柔和陰影 */
+  padding: 0.35rem;         /* 內距，讓內層表格跟外框有一點間隙 */
 }
 </style>
