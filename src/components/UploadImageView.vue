@@ -1,5 +1,5 @@
 <script setup>
-  import { ref,reactive,computed,onMounted } from 'vue'
+  import { ref,reactive,onMounted } from 'vue'
   import Swal from 'sweetalert2'
   import imageService from '@/services/image'
   import typeService from '@/services/CommissionType'

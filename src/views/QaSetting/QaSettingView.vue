@@ -135,7 +135,7 @@ const handleSubmit = async (formData) => {
     }
     isModalOpen.value = false
     getQaSetting()
-  } catch (error) {
+  } catch {
     await Swal.fire({
       icon: 'error',
       title: '儲存失敗',
