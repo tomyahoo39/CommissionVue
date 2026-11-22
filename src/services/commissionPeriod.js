@@ -9,6 +9,9 @@ const periodService = {
   },
   createNewPeriod(period) {
     return api.post('/CommissionPeriods/NewPeriod',period)
+  },
+  deletePeriod(periodId) {
+    return api.delete(`/CommissionPeriods/DeletePeriod/${periodId}`)
   }
 }
 

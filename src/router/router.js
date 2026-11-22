@@ -32,6 +32,12 @@ const router = createRouter({
       meta: { requiresLogin: true, requiresAdmin: true }
     },
     {
+      path: '/periodOrder',
+      name: 'periodOrder',
+      component: () => import('../views/CommissionPeriod/PeriodOrderAdminView.vue'),
+      meta: { requiresLogin: true, requiresAdmin: true }
+    },
+    {
       path: '/type',
       name: 'type',
       component: () => import('../views/CommissionPeriod/CommissionTypeView.vue'),
